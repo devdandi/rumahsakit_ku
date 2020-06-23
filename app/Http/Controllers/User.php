@@ -12,7 +12,12 @@ class User extends Controller
 
     public function index()
     {
-        return view('login');
+        if(session()->get('email') == null OR session()->get('email') == '') {
+            return view('login');
+        }else{
+            return redirect('/dashboard')->with(['login' => "<script>alert('Kamu sudah login')</script>"]);
+        }
+        
     }
     public function login(Request $req)
     {

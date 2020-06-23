@@ -13,6 +13,9 @@ class Dashboard extends Controller
         {
             return redirect('/')->with(['error' => 'Login terlebih dahulu !']);
         }
+        if($c = session()->get('login')) {
+            echo $c;
+        }
         $user = new User;
         $get_data = $user->where('email', session()->get('email'))->get();
         return view('index', ['get_data' => $get_data]);

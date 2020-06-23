@@ -27,7 +27,7 @@
         <!-- START HEADER-->
         <header class="header">
             <div class="page-brand">
-                <a class="link" href="index.html">
+                <a class="link" href="{{ url('/dashboard') }}">
                     <span class="brand">Admin
                         <span class="brand-tip">CAST</span>
                     </span>
@@ -60,7 +60,7 @@
                             <li class="dropdown-menu-header">
                                 <div>
                                     <span><strong>0 New</strong> Pesan</span>
-                                    <a class="pull-right" href="mailbox.html">view all</a>
+                                    <a class="pull-right" href="{{ url('/dashboard/mail') }}">Lihat Semua</a>
                                 </div>
                             </li>
                             <li class="list-group list-group-divider scroller" data-height="240px" data-color="#71808f">
@@ -85,9 +85,9 @@
                             <img src="{{ url('assets/img/admin-avatar.png') }}" />
                             <span></span>{{ session()->get('email') }}<i class="fa fa-angle-down m-l-5"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a>
-                            <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
-                            <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
+                            <!-- <a class="dropdown-item" href="{{ url('/dashboard') }}"><i class="fa fa-user"></i>Profile</a>
+                            <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a> -->
+                            <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Bantuan</a>
                             <li class="dropdown-divider"></li>
                             <a class="dropdown-item" href="/dashboard/logout"><i class="fa fa-power-off"></i>Logout</a>
                         </ul>
@@ -108,7 +108,7 @@
                 </div>
                 <ul class="side-menu metismenu">
                     <li>
-                        <a class="active" href="/"><i class="sidebar-item-icon fa fa-th-large"></i>
+                        <a class="active" href="/dashboard"><i class="sidebar-item-icon fa fa-th-large"></i>
                             <span class="nav-label">Halaman Utama</span>
                         </a>
                     </li>
