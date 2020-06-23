@@ -18,7 +18,7 @@ Route::post('/login', 'User@login');
 Route::get('/dashboard', 'Dashboard@index');
 Route::get('/dashboard/dokter', 'Dokter@index');
 Route::get('/dashboard/dokter/tambah', 'Dokter@tambah');
-Route::get('/dashboard/dashboard/logout', 'Dashboard@logout');
+Route::get('/dashboard/logout', 'Dashboard@logout');
 Route::get('/dashboard/akun/tambah', 'Akun@tambah');
 Route::post('/dashboard/akun/tambah', 'Akun@proses_tambah');
 Route::get('/akun/verifikasi/{email}', 'Akun@verifikasi');
