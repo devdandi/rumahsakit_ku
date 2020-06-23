@@ -8,24 +8,31 @@ use App\models\User;
 use App\models\Jabatan;
 use App\models\Spesialis;
 use App\Http\Controllers\EmailControl;
+use App\models\LoggingUser;
 
 class Akun extends Controller
 {
+    protected $pesanController = "Melakukan permintaan untuk mengakses data akun";
     public function index()
     {
+        $log = new LoggingUser;
         $user = new User;
+        $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Lihat']);
         return view('daftar-akun',['get_data' => $user->get(),'get_all' => $user->paginate(10)]);
     }
     public function tambah()
     {
+        $log = new LoggingUser;
         $spesialis = new Spesialis;
         $jabatan = new Jabatan;
         $user = new User;
         $get_date = $user->where('email', session()->get('email'))->get();
+        $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Form Tambah']);
         return view('tambah',['get_data' => $get_date, 'jabatan' => $jabatan->get(),'spesialis' => $spesialis->get()]);
     }
     public function proses_tambah(Request $req)
     {
+        $log = new LoggingUser;
         $user = new User;
         $user->name = $req->nama;
         $user->email = $req->email;
@@ -35,10 +42,13 @@ class Akun extends Controller
         $user->foto = "admin-avatar.png";
         if($user->save())   
         {
+            $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Tambah']);
             $email = new EmailControl;
             $email->_sendEmail('register', $req->email);
             return redirect('/akun/tambah')->with(['success' => 'Berhasil menambahkan '. $req->email.' !']);
         }else{
+            $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Tambah Gagal']);
+
             return redirect('/akun/tambah')->with(['error' => 'Gagal menambahkan '. $req->email.' !']);
 
         }
@@ -66,10 +76,12 @@ class Akun extends Controller
     }
     public function hapus($id)
     {
+        $log = new LoggingUser;
         $user = new User;
         $del = $user->where('id_user', $id);
         if($del->delete())
         {
+            $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Hapus']);
             return redirect('/akun')->with(['success' => 'Berhasil dihapus !']);
         }
     }
@@ -80,6 +92,7 @@ class Akun extends Controller
     }
     public function edit($id)
     {
+        $log = new LoggingUser;
         if($id == '')
         {
             return redirect('/akun')->with(['error' => 'Aduh, ada kesalahan !']);
@@ -88,10 +101,12 @@ class Akun extends Controller
         $jabatan = new Jabatan;
         $spesialis = new Spesialis;
         $get = $user->where('id_user', $id);
+        $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Lihat Form Edit']);
         return view('edit-akun',['data' => $get->get(),'get_data' => $user->where('email',session()->get('email'))->get(),'jabatan' => $jabatan->get(),'spesialis' => $spesialis->get()]);
     }
     public function proses_edit(Request $req)
     {
+        $log = new LoggingUser;
         $user = new User;
         $c = $user->where('email', $req->email)->update([
             'name' => $req->nama, 
@@ -106,10 +121,12 @@ class Akun extends Controller
             if($req->status == "block") {
                 $email = new EmailControl;
                 $email->_sendEmail('block', $req->email);
+                $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.'  Memblokir akun '.$req->email.' dan memperbarui ']);
                 return redirect('/akun')->with(['success' => $req->email. ' Telah diblokir dan diperbarui !']);
             }else{
                 $email = new EmailControl;
                 $email->_sendEmail('aktif', $req->email);
+                $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.'  Membuka blokir akun '.$req->email.' dan memperbarui ']);
                 return redirect('/akun')->with(['success' => $req->email. ' Telah diaktifkan dan diperbarui !']);
             }
         }
