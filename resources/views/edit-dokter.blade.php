@@ -4,15 +4,15 @@
 <script type="text/javascript">
   $(document).ready(function() {
       $('#spesialis').select2({
-       placeholder: " Pilih...",
-    allowClear: true,
-    language: "id"
+        placeholder: " Pilih...",
+        allowClear: true,
+        language: "id"
       });
       $('#jadwal').select2({
-       placeholder: " Pilih...",
-    allowClear: true,
-    language: "id"
-      });
+        placeholder: " Pilih...",
+        allowClear: true,
+        language: "id"
+    });
   });
  </script>
 <div class="content-wrapper">
@@ -20,7 +20,7 @@
 <div class="col-md">
                         <div class="ibox">
                             <div class="ibox-head">
-                                <div class="ibox-title">Tambah Dokter</div>
+                                <div class="ibox-title">Edit Dokter</div>
                             </div>
                             @if($message = Session::get('success'))
                             <div class="alert alert-success" role="alert">
@@ -34,42 +34,32 @@
                             @endif
                             <div class="ibox-body">
                                 <form class="form-horizontal" method="post" action="">
-                                @csrf           
+                                @csrf
                                 <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">NIK</label>
+                                        <label class="col-sm-2 col-form-label">Nama Lengkap</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="nik" type="number" placeholder="NIK">
+                                            <input class="form-control" readonly name="nik" value="{{ $data[0]->nik }}" type="text" id="input-nik" placeholder="Nama Lengkap">
+                                            <input type="text" hidden name="id" value="{{$data[0]->id_dokter}}">
+                                            <a id="btn-lock" onClick="return confirm('Yakin ?')" class="btn btn-warning mt-1">Buka</a>
+                                            <a id="btn-unlock" hidden class="btn btn-warning mt-1">Tutup</a>
                                         </div>
-                                    </div>             
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" name="email" type="email" placeholder="Email">
-                                        </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Nama Lengkap</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="nama" type="text" placeholder="Nama Lengkap">
+                                            <input class="form-control" name="nama" value="{{ $data[0]->nama }}" type="text" placeholder="Nama Lengkap">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Alamat</label>
+                                        <label class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <textarea name="alamat" class="form-control" id="" cols="30" rows="3"></textarea>
+                                        <small id="checking" hidden="">Checking...</small>
+                                        <small id="status-ada" style="color:red" hidden="">Email telah terdaftar</small>
+                                        <small id="status-a" style="color:green" hidden="">Email tersedia</small>
+                                            <input class="form-control" name="email" id="email" value="{{ $data[0]->email }}" type="text" placeholder="Email">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                                        <div class="col-sm-10">
-                                            <select name="jenis_kelamin" id="">
-                                                <option>Pilih...</option>
-                                                <option value="Laki-Laki">Laki-Laki</option>
-                                                <option value="Perempuan">Perempuan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div id="spesialis-new" class="form-group row">
+                                         <div id="spesialis-new" class="form-group row">
                                         <label class="col-sm-2 col-form-label">Spesialis</label>
                                         <div class="col-sm-10">
                                             <select class="form-control" name="spesialis[]" style="width: 200px;" id="spesialis" multiple="multiple">
@@ -77,16 +67,18 @@
                                                     <option value="{{ $spesialis1->spesialis }}">{{ $spesialis1->spesialis }}</option>
                                                 @endforeach
                                             </select>
+                                            <p>Spesialis Sebelumnya {{ $data[0]->spesialis }}</p>
                                         </div>
                                     </div>
-                                    <div id="spesialis-new" class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Jadwal Dokter</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="jadwal[]" style="width: 200px;" id="jadwal" multiple="multiple">
-                                            @foreach($jadwal as $jadwal1)
-                                                <option value="{{ $jadwal1->hari }}">{{ $jadwal1->hari }}</option>
-                                            @endforeach
+                                    <div id="jadwaldokter-new" class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Jadwal Dokter</label>
+                                    <div class="col-sm-10">
+                                            <select class="form-control" name="jadwal_dokter[]" style="width: 200px;" id="jadwal" multiple="multiple">
+                                                @foreach($jadwal_dokter as $jadwal_dokter1)
+                                                    <option value="{{ $jadwal_dokter1->hari }}">{{ $jadwal_dokter1->hari }}</option>
+                                                @endforeach
                                             </select>
+                                            <p>Jadwal Sebelumnya {{ $data[0]->jadwal_dokter }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -148,27 +140,53 @@
                                                 <option>23</option>
                                                 <option>24</option>
                                             </select>
+                                            <p>Jam Sebelumnya {{ $data[0]->dari_jam }} - {{ $data[0]->sampai_jam }}</p>
+
                                         </div>
                                     </div>  
+                                    
                                     <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                                        <div class="col-sm-10">
+                                            <select name="jenis_kelamin" id="">
+                                                <option value="Laki-Laki">Laki-Laki</option>
+                                                <option value="Perempuan">Perempuan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="password-manual" class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Alamat</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="alamat" class="form-control" id="" cols="20" rows="5">{{ $data[0]->alamat }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div id="password-manual" class="form-group row">
                                         <label class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="password" type="password" placeholder="Password">
+                                            <input id="password-input-manual" class="form-control" name="password" type="password" value="{{ $data[0]->password }}" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Foto</label>
+                                        <div class="col-sm-10">
+                                            <img src="{{ url('assets/img/admin-avatar.png') }}" alt="">
+                                            <p style="color: red;"><i>Foto tidak dapat diubah, hanya dapat diubah oleh pemilik akun !</i></p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-10 ml-sm-auto">
                                             <button id="buttons" class="btn btn-success" type="submit">Submit</button>
-                                            <a id="buttons" href='/dokter'>Kembali</a>
+                                            <a href="{{ url('/dashboard') }}">Kembali</a>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
+</div>
 
-<!-- <script>
+<script>
     $(document).ready(function(){
         $('#password-manual-c').click(function(){
             $('#password-manual').attr('hidden','')
@@ -186,6 +204,17 @@
                 $('#spesialis-new').attr('hidden','')
 
             }
+        })
+        $('#btn-lock').on('click', function(){
+            $('#input-nik').removeAttr('readonly','')
+            $('#btn-lock').attr('hidden','')
+            $('#btn-unlock').removeAttr('hidden','')
+        })
+        $('#btn-unlock').on('click', function(){
+            $('#input-nik').attr('readonly','')
+            $('#btn-lock').removeAttr('hidden','')
+            $('#btn-unlock').attr('hidden','')
+
         })
         $('#email').change(function(){
             if(this.value == ''){
@@ -230,5 +259,5 @@
             }
         })
     })
-</script> -->
+</script>
 @endsection

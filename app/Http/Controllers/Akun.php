@@ -45,11 +45,11 @@ class Akun extends Controller
             $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Tambah']);
             $email = new EmailControl;
             $email->_sendEmail('register', $req->email);
-            return redirect('/akun/tambah')->with(['success' => 'Berhasil menambahkan '. $req->email.' !']);
+            return redirect()->back()->with(['success' => 'Berhasil menambahkan '. $req->email.' !']);
         }else{
             $log->create(['email' => session()->get('email'),'pesan' => $this->pesanController.' Tambah Gagal']);
 
-            return redirect('/akun/tambah')->with(['error' => 'Gagal menambahkan '. $req->email.' !']);
+            return redirect()->back()->with(['error' => 'Gagal menambahkan '. $req->email.' !']);
 
         }
     }

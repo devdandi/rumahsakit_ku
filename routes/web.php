@@ -18,6 +18,11 @@ Route::post('/login', 'User@login');
 Route::get('/dashboard', 'Dashboard@index');
 Route::get('/dashboard/dokter', 'Dokter@index');
 Route::get('/dashboard/dokter/tambah', 'Dokter@tambah');
+Route::post('/dashboard/dokter/tambah', 'Dokter@proses_tambah');
+Route::get('/dashboard/dokter/hapus/{id}', 'Dokter@proses_hapus');
+Route::get('/dashboard/dokter/edit/{id}', 'Dokter@edit');
+Route::post('/dashboard/dokter/edit/{id}', 'Dokter@proses_edit');
+
 Route::get('/dashboard/logout', 'Dashboard@logout');
 Route::get('/dashboard/akun/tambah', 'Akun@tambah');
 Route::post('/dashboard/akun/tambah', 'Akun@proses_tambah');

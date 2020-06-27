@@ -7,8 +7,7 @@ use App\models\User as Login;
 
 class User extends Controller
 {
-    private $email = '';
-    public $block_acc = 1;
+    public $email;
 
     public function index()
     {
@@ -21,8 +20,6 @@ class User extends Controller
     }
     public function login(Request $req)
     {
-        global $login_failed;
-
         if(isset($_POST['submit'])) {
             $user = new Login;
             $check_email = $user->where('email', $req->email)->count();
@@ -37,12 +34,12 @@ class User extends Controller
                     if(session()->get('id_user') != '' && session()->get('email') != '') 
                     {
                         if($c[0]->status == "aktif") {
+                            $this->email = $req->email;
                             return redirect('/dashboard');
                         }else if($c[0]->status == "block"){
                             return redirect('/')->with(['error' => 'Akun anda dinonaktifkan, mungkin karena pelanggaran !']);
                         }else{
                             return redirect('/')->with(['error' => 'Akun anda belum diaktifkan, silahkan cek email anda !']);
-                            
                         }
                     }else{
                         return redirect('/')->with(['error' => 'Aduh, ada kesalahan !']);
