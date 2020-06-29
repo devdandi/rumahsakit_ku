@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="ibox-body">
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped table-hover" id="table_pasien">
                                     <thead>
                                         <tr>
                                             <th>ID Pasien</th>
@@ -130,15 +130,7 @@
                                             <th width="91px">Date</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#83628468237-3232</td>
-                                            <td>Dandi Ramdani</td>
-                                            <td>UGD-12</td>
-                                            <td>Dirawat</td>
-                                            <td>Loba duit</td>
-                                            <td>{{ now() }}</td>
-                                        </tr>
+                                    <tbody id="table_data">
                                     </tbody>
                                 </table>
                             </div>
@@ -146,5 +138,37 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                $(document).ready( () => {
+                    $.ajax({
+                        type:"GET",
+                        url: '/dashboard/pasien/indexGrafik',
+                        success: function(data){
+                            $.each(data, (i, item) => {
+                                var html = '<tr>';
+                                html += '<td>'+item.nik+'</td>';
+                                html += '<td>'+item.nama+'</td>';
+                                html += '<td>'+item.ruangan+'</td>';
+                                html += '<td>'+item.status+'</td>';
+                                html += '<td>'+item.penyakit+'</td>';
+                                html += '<td>'+item.created_at+'</td>';
+                                html += '</tr>'  
+                                $('#table_data').prepend(html);
+
+                            })
+                            // console.log(data[0]['id_pasien'])
+                        }
+                    })
+                    setInterval(function () {
+                        // the second argument here will prevent the pagination
+                        // from reseting when the table is reloaded
+                        $('#table_pasien').ajax.reload( null, false );
+                    }, 3000);
+                })
+                
+            
+            </script>
+            
             @endsection
  

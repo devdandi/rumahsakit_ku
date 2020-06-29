@@ -49,6 +49,11 @@ class EmailControl extends Controller
                 $mail->Subject = 'Akun Anda Diaktifkan';
                 $mail->Body    = '<h1>Email anda telah diaktifkan</h1>';
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            }else if($type == "reset") {
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Reset Password';
+                $mail->Body    = "<p>Password sementara anda: D897438LKDAJDAN". 
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
             }
             if($mail->send()){
                 return true;

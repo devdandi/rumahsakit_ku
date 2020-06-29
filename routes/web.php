@@ -22,6 +22,19 @@ Route::post('/dashboard/dokter/tambah', 'Dokter@proses_tambah');
 Route::get('/dashboard/dokter/hapus/{id}', 'Dokter@proses_hapus');
 Route::get('/dashboard/dokter/edit/{id}', 'Dokter@edit');
 Route::post('/dashboard/dokter/edit/{id}', 'Dokter@proses_edit');
+Route::get('/dashboard/pasien/tambah', 'Pasien@tambah');
+Route::post('/dashboard/pasien/tambah', 'Pasien@proses_tambah');
+Route::get('/dashboard/covid', 'StatusCovid@index');
+Route::get('/dashboard/pasien','Pasien@index');
+Route::get('/dashboard/pasien/hapus/{id}','Pasien@hapus');
+Route::get('/dashboard/pasien/edit/{id}','Pasien@edit');
+Route::post('/dashboard/pasien/edit/{id}','Pasien@proses_edit');
+Route::get('/forgot','User@forgot');
+Route::post('/forgot','User@proses_forgot');
+
+
+
+
 
 Route::get('/dashboard/logout', 'Dashboard@logout');
 Route::get('/dashboard/akun/tambah', 'Akun@tambah');
@@ -36,4 +49,5 @@ Route::get('/dashboard/tambah/spesialis', 'Tambah@spesialis');
 Route::post('/dashboard/tambah/spesialis', 'Tambah@tambah_spesialis');
 Route::post('/dashboard/tambah/spesialis/file', 'Tambah@tambah_file_spesialis');
 Route::get('/dashboard/logging-user','LoggingUser@index');
+Route::get('/dashboard/pasien/indexGrafik', 'Pasien@indexGrafik');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\User as Login;
+use App\Http\Controllers\EmailControl;
 
 class User extends Controller
 {
@@ -50,6 +51,24 @@ class User extends Controller
             }
         }else{
             return view('login');
+        }
+    }
+    public function forgot()
+    {
+        return view('forgot_password');
+    }
+    public function proses_forgot()
+    {
+        $user = new Login;
+        $c = $user->where('email', $req->email);
+        if($c->count() > 0)
+        {
+            $email = new EmailControl;
+            $email->_sendEmail('reset', $req->email);
+            return redirect('/')->with(['success' => 'Password reset berhasil, cek email anda !']);
+
+        }else{
+            return redirect('/')->with(['error' => 'Email tidak terdaftar !']);
         }
     }
 }

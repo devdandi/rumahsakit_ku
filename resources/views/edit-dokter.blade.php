@@ -67,7 +67,11 @@
                                                     <option value="{{ $spesialis1->spesialis }}">{{ $spesialis1->spesialis }}</option>
                                                 @endforeach
                                             </select>
-                                            <p>Spesialis Sebelumnya {{ $data[0]->spesialis }}</p>
+                                            <!-- <p>Spesialis Sebelumnya {{ $data[0]->spesialis }}</p> -->
+                                            <?php $data_sp = json_decode($data[0]->spesialis) ?>
+                                            @foreach($data_sp as $data_sp1)
+                                                <li style="color: green">{{ htmlspecialchars($data_sp1) }}</li>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div id="jadwaldokter-new" class="form-group row">
@@ -78,7 +82,10 @@
                                                     <option value="{{ $jadwal_dokter1->hari }}">{{ $jadwal_dokter1->hari }}</option>
                                                 @endforeach
                                             </select>
-                                            <p>Jadwal Sebelumnya {{ $data[0]->jadwal_dokter }}</p>
+                                            <?php $data_jd = json_decode($data[0]->jadwal_dokter) ?>
+                                            @foreach($data_jd as $data_jd1)
+                                                <li style="color: green">{{ htmlspecialchars($data_jd1) }}</li>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -140,7 +147,7 @@
                                                 <option>23</option>
                                                 <option>24</option>
                                             </select>
-                                            <p>Jam Sebelumnya {{ $data[0]->dari_jam }} - {{ $data[0]->sampai_jam }}</p>
+                                            <p style="color: green">Jam Sebelumnya {{ $data[0]->dari_jam }} - {{ $data[0]->sampai_jam }}</p>
 
                                         </div>
                                     </div>  

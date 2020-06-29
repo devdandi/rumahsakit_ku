@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\User;
+use App\models\Pasien;
+
 
 class Dashboard extends Controller
 {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Admincast bootstrap 4 &amp; angular 5 admin template, Шаблон админки | Forgot password</title>
+    <title>Rumahsakit Demo | Forgot password</title>
     <!-- GLOBAL MAINLY STYLES-->
     <link href="./assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- THEME STYLES-->
@@ -17,11 +17,11 @@
 <body class="bg-silver-300">
     <div class="content">
         <div class="brand">
-            <a class="link" href="index.html">AdminCAST</a>
+            <a class="link" href="/">RumahSakit DEMO</a>
         </div>
-        <form id="forgot-form" action="javascript:;" method="post">
-            <h3 class="m-t-10 m-b-10">Forgot password</h3>
-            <p class="m-b-20">Enter your email address below and we'll send you password reset instructions.</p>
+        <form id="forgot-form" action="" method="post">
+            <h3 class="m-t-10 m-b-10">Lupa password</h3>
+            <p class="m-b-20">Masukan email yang terdaftar</p>
             <div class="form-group">
                 <input class="form-control" type="email" name="email" placeholder="Email" autocomplete="off">
             </div>
