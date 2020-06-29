@@ -40,6 +40,9 @@
                     <li>
                         <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
                     </li>
+                    <li>
+                        <a href="https://api.whatsapp.com/send?phone=62895330534784" target="_blank">Kontak Developer: WhatsApp</a>
+                    </li>
                     <!-- <li>
                         <form class="navbar-search" action="javascript:;">
                             <div class="rel">
@@ -369,7 +372,7 @@
     <!-- CORE SCRIPTS-->
     <script src="{{ url('assets/js/app.min.js') }}" type="text/javascript"></script>
     <!-- PAGE LEVEL SCRIPTS-->
-    <script src="{{ url('assets/js/scripts/dashboard_1_demo.js') }}" type="text/javascript"></script>
+    
 </body>
 
 </html>

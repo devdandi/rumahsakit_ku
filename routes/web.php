@@ -31,6 +31,7 @@ Route::get('/dashboard/pasien/edit/{id}','Pasien@edit');
 Route::post('/dashboard/pasien/edit/{id}','Pasien@proses_edit');
 Route::get('/forgot','User@forgot');
 Route::post('/forgot','User@proses_forgot');
+Route::get('/dashboard/getByWeek', 'Dashboard@getByWeek');
 
 
 

@@ -126,8 +126,6 @@
                                             <th>Nama</th>
                                             <th>Ruangan</th>
                                             <th>Status</th>
-                                            <th>Penyakit</th>
-                                            <th width="91px">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_data">
@@ -151,8 +149,6 @@
                                 html += '<td>'+item.nama+'</td>';
                                 html += '<td>'+item.ruangan+'</td>';
                                 html += '<td>'+item.status+'</td>';
-                                html += '<td>'+item.penyakit+'</td>';
-                                html += '<td>'+item.created_at+'</td>';
                                 html += '</tr>'  
                                 $('#table_data').prepend(html);
 
@@ -166,6 +162,106 @@
                         $('#table_pasien').ajax.reload( null, false );
                     }, 3000);
                 })
+
+                $(function() {
+    var a = {
+            labels: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+            datasets: [{
+                label: "Data Grafik",
+                borderColor: 'rgba(52,152,219,1)',
+                backgroundColor: 'rgba(52,152,219,1)',
+                pointBackgroundColor: 'rgba(52,152,219,1)',
+                data: [
+                    <?php foreach($date_pasien as $no => $pasiens): ?>
+                        {{ $pasiens->jumlah_mingguan }},
+                    <?php endforeach; ?>
+            ]
+            }]
+        },
+        t = {
+            responsive: !0,
+            maintainAspectRatio: !1
+        },
+        e = document.getElementById("bar_chart").getContext("2d");
+    new Chart(e, {
+        type: "line",
+        data: a,
+        options: t
+    });
+
+  $('#world-map').vectorMap({
+    map: 'world_mill_en',
+    backgroundColor: 'transparent',
+    regionStyle: {
+        initial: {
+            fill: '#DADDE0',
+        }
+    },
+    showTooltip: true,
+    onRegionTipShowx: function(e, el, code){
+        el.html(el.html()+' (Visits - '+mapData[code]+')');
+    },
+    markerStyle: {
+      initial: {
+        fill  : '#3498db',
+        stroke: '#333'
+      }
+    },
+    markers: [
+      {
+        latLng: [1.3, 103.8],
+        name: 'Singapore : 203'
+      },
+      {
+        latLng: [38, -105],
+        name: 'USA : 755',
+      },
+      {
+        latLng: [58, -115],
+        name: 'Canada : 700',
+      },
+      {
+        latLng: [-25, 140],
+        name: 'Australia : 304',
+      },
+      {
+        latLng: [55.00, -3.50],
+        name: 'UK : 202',
+      },
+      {
+        latLng: [21, 78],
+        name: 'India : 410',
+      },
+      {
+        latLng: [25.00, 54.00],
+        name: 'UAE : 180',
+      }
+    ]
+  });
+
+  
+  var doughnutData = {
+      labels: ["Desktop","Tablet","Mobile" ],
+      datasets: [{
+          data: [47,30,23],
+          backgroundColor: ["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)"]
+      }]
+  } ;
+
+
+  var doughnutOptions = {
+      responsive: true,
+      legend: {
+        display: false
+      },
+  };
+
+
+  var ctx4 = document.getElementById("doughnut_chart").getContext("2d");
+  new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+
+
+});
                 
             
             </script>

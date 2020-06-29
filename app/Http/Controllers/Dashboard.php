@@ -11,6 +11,7 @@ class Dashboard extends Controller
 {
     public function index()
     {
+        date_default_timezone_set('Asia/Jakarta');
         if(session()->get('id_user') == null AND session()->get('email') == null)
         {
             return redirect('/')->with(['error' => 'Login terlebih dahulu !']);
@@ -20,7 +21,8 @@ class Dashboard extends Controller
         }
         $user = new User;
         $get_data = $user->where('email', session()->get('email'))->get();
-        return view('index', ['get_data' => $get_data]);
+        $pasien = new Pasien;
+        return view('index', ['get_data' => $get_data,'date_pasien' => $pasien->getByWeek()]);
     }
     public function test()
     {
