@@ -115,6 +115,7 @@
                             <span class="nav-label">Halaman Utama</span>
                         </a>
                     </li>
+                    @if($get_data[0]->level == "Administrator")
                     <li class="heading">MENU UTAMA</li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon ti-user"></i>
@@ -131,6 +132,9 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    
+                    @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Dokter")
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                             <span class="nav-label">Pasien</span><i class="fa fa-angle-left arrow"></i></a>
@@ -138,18 +142,30 @@
                             <li>
                                 <a href="/dashboard/covid">Status Covid-19</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="/dashboard/pasien/tambah"><i class="ti-plus"></i> Tambah Pasien</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="/dashboard/pasien"><i class="ti-align-justify"></i> Daftar Pasien</a>
                             </li>
                             <li>
                                 <a href="/dashboard/pasien/pembayaran"><i class="ti-credit-card"></i> Pembayaran Pasien</a>
                             </li>
- 
                         </ul>
                     </li>
+                    @endif
+                    @if($get_data[0]->level == "Farmasi" || $get_data[0]->level == "Dokter")
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                            <span class="nav-label">Menu Pembelian Obat</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="/dashboard/pasien/obat"><i class="ti-align-justify"></i> Daftar Pasien</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+                    @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Finance")
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon ti-money"></i>
                             <span class="nav-label">Laporan Keuangan</span><i class="fa fa-angle-left arrow"></i></a>
@@ -159,6 +175,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
                     @if($get_data[0]->level == "Administrator")
                     <li class="heading">Menu Akun</li>
                     <li>
@@ -174,9 +191,10 @@
                         </ul>
                     </li>
                     @endif
+                    @if($get_data[0]->level == "Administrator")
                     <li class="heading">MENU PENAMBAHAN</li>
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon ti-user"></i>
+                        <a href="javascript:;"><i class="sidebar-item-icon ti-align-justify"></i>
                             <span class="nav-label">Menu Penambahan</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
@@ -190,6 +208,26 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Resepsionis")
+                    <li>
+                    <li class="heading">MENU ANTRIAN</li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon ti-align-justify"></i>
+                            <span class="nav-label">Menu Antrian</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="/dashboard/antrian/tambah"><i class="ti-plus"></i> Tambah Antrian</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/antrian"><i class="ti-align-justify"></i> Daftar Antrian</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/antrian/reset"><i class="ti-calendar"></i> Reset Antrian</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
                     <li>
                     <li class="heading">Menu Pesan</li>
                     <li>
@@ -353,10 +391,7 @@
     </div>
     <!-- END THEME CONFIG PANEL-->
     <!-- BEGIN PAGA BACKDROPS-->
-    <div class="sidenav-backdrop backdrop"></div>
-    <div class="preloader-backdrop">
-        <div class="page-preloader">Loading</div>
-    </div>
+
     <!-- END PAGA BACKDROPS-->
     <!-- CORE PLUGINS-->
     <script src="{{ url('assets/vendors/jquery/dist/jquery.min.js') }}" type="text/javascript"></script>

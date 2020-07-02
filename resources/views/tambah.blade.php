@@ -52,6 +52,9 @@
                                             <select name="level" id="" class="form-contol">
                                             <option value="">Pilih</option>
                                                 <option>Administrator</option>
+                                                <option>Resepsionis</option>
+                                                <option>Dokter</option>
+                                                <option>Suster</option>
                                                 <option>Pengguna</option>
                                             </select>
                                         </div>

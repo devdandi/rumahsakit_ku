@@ -8,7 +8,7 @@
         allowClear: true,
         language: "id"
       });
-      $('#jadwal').select2({
+      $('#resep-obat').select2({
         placeholder: " Pilih...",
         allowClear: true,
         language: "id"
@@ -20,7 +20,7 @@
 <div class="col-md">
                         <div class="ibox">
                             <div class="ibox-head">
-                                <div class="ibox-title">Edit Pasien</div>
+                                <div class="ibox-title">Periksa Pasien</div>
                             </div>
                             @if($message = Session::get('success'))
                             <div class="alert alert-success" role="alert">
@@ -39,65 +39,55 @@
                                         <label class="col-sm-2 col-form-label">NIK</label>
                                         <input type="text" hidden name="id" value="{{ $data[0]->id_pasien }}">
                                         <div class="col-sm-10">
-                                            <input class="form-control" readonly name="nik" value="{{ $data[0]->nik }}" type="text" id="input-nik" placeholder="Nama Lengkap">
-                                            <a id="btn-lock" onClick="return confirm('Yakin ?')" class="btn btn-warning mt-1">Buka</a>
-                                            <a id="btn-unlock" hidden class="btn btn-warning mt-1">Tutup</a>
+                                            <p>{{ $data[0]->nik }}</p>
+                                            
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Nama Lengkap</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="nama" value="{{ $data[0]->nama }}" type="text" placeholder="Nama Lengkap">
-                                        </div>
-                                    </div> 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Ruangan</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" name="nama" value="{{ $data[0]->ruangan }}" type="text" placeholder="Nama Lengkap">
+                                            <p>{{ $data[0]->nama }}</p>
                                         </div>
                                     </div> 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
                                         <div class="col-sm-10">
-                                            <select name="jenis_kelamin" id="">
-                                                <option value="Laki-Laki">Laki-Laki</option>
-                                                <option value="Perempuan">Perempuan</option>
-                                            </select>
+                                            <p>{{ $data[0]->jenis_kelamin }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Golongan Darah</label>
                                         <div class="col-sm-10">
-                                            <select name="golongan_darah" id="">
-                                                <option>A</option>
-                                                <option>B</option>
-                                                <option>AB</option>
-                                                <option>O</option>
-                                            </select>
+                                            <p>{{ $data[0]->golongan_darah }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Status</label>
                                         <div class="col-sm-10">
-                                            <select name="status" id="">
-                                            <option value="">Pilih</option>
-                                                <option value="Sembuh">Sembuh</option>
-                                                <option value="Dirawat">Dirawat</option>
-                                            </select>
-                                            <p style="color: red;">Status sebelumnya : {{ $data[0]->status }}</p>
+                                            <p style="color: red;">{{ $data[0]->status }}</p>
                                         </div>
                                     </div>
                                     <div id="password-manual" class="form-group row">
                                         <label class="col-sm-2 col-form-label">Alamat</label>
                                         <div class="col-sm-10">
-                                            <textarea name="alamat" class="form-control" id="" cols="20" rows="5">{{ $data[0]->alamat }}</textarea>
+                                        <p>{{ $data[0]->alamat }}</p>
                                         </div>
                                     </div>
                                     <div id="password-manual" class="form-group row">
                                         <label class="col-sm-2 col-form-label">Penyakit Diderita</label>
                                         <div class="col-sm-10">
-                                            <textarea name="penyakit" class="form-control" id="" cols="20" rows="5">Contoh: demam|sakit hati|bau. Pisahkan setiap penyakit dengan |</textarea>
-                                            <p>Penyakit Sebelumnya : {{ $data[0]->penyakit }}</p>
+                                            <textarea name="penyakit" class="form-control" id="" cols="20" rows="5"></textarea>
+                                            <p>Contoh: demam|covid</p>
+                                        </div>
+                                    </div>
+                                    <div id="spesialis-new" class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Resep</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="resep[]" style="width: 200px;" id="resep-obat" multiple="multiple">
+                                            @foreach($obat as $obats)
+                                                <option value="{{ $obats->id_obat }}">{{ $obats->nama }}</option>
+                                            @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -110,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+                    
 </div>
 
 <script>

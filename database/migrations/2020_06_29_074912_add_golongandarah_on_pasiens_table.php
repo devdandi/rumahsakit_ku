@@ -11,7 +11,7 @@ class AddGolongandarahOnPasiensTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() 
     {
         Schema::table('pasiens', function($table) {
             $table->string('golongan_darah');

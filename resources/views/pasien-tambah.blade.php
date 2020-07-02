@@ -40,6 +40,12 @@
                                         <div class="col-sm-10">
                                             <input class="form-control" name="nik" type="number" placeholder="NIK">
                                         </div>
+                                    </div>   
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">No Antrian</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" name="no_antrian" readonly type="number" value="{{ $no_antrian }}" placeholder="No antrian yang dipanggil">
+                                        </div>
                                     </div>             
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Nama Lengkap</label>
@@ -53,13 +59,13 @@
                                             <textarea name="alamat" class="form-control" id="" cols="30" rows="3"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Penyakit</label>
                                         <div class="col-sm-10">
                                             <textarea name="penyakit" class="form-control" id="" cols="30" rows="3">Pisahkan setiap penyakit yang diderita dengan ' , '</textarea>
                                         </div>
-                                    </div>
-                                    <div id="spesialis-new" class="form-group row">
+                                    </div> -->
+                                    <!-- <div id="spesialis-new" class="form-group row">
                                         <label class="col-sm-2 col-form-label">Ruangan</label>
                                         <div class="col-sm-10">
                                             <select class="form-control" name="ruangan" style="width: 200px;" id="jadwal">
@@ -69,7 +75,7 @@
                                             </select>
                                             <p>Data yang ditampilkan adalah ruangan yang kosong.</p>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
                                         <div class="col-sm-10">
@@ -84,6 +90,8 @@
                                         <label class="col-sm-2 col-form-label">Golongan Darah</label>
                                         <div class="col-sm-10">
                                             <select name="golongan_darah" id="">
+                                                <option>Pilih...</option>
+                                                <option>None</option>
                                                 <option>A</option>
                                                 <option>B</option>
                                                 <option>AB</option>

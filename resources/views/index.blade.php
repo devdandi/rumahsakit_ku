@@ -1,10 +1,46 @@
         @extends('root.root')
         @section('content')
+        
         <!-- END SIDEBAR-->
         <div class="content-wrapper">
             <!-- START PAGE CONTENT-->
             <div class="page-content fade-in-up">
                 <div class="row">
+                        @if($get_data[0]->level == "Resepsionis")
+                            <div class="col-lg-3 col-md-6">
+                            <div class="ibox bg-danger color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong">{{ $antrian->no_antrian+1 }}</h2>
+                                    <a style="color: white" href="/dashboard/antrian/tambah" class="m-b-5">Antrian Selanjutnya</a><i class="ti-user widget-stat-icon"></i>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                            <div class="ibox bg-danger color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong">{{ $antrian->no_antrian }}</h2>
+                                    <div class="m-b-5">Antrian Sebelumnya</div><i class="ti-user widget-stat-icon"></i>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                            <div class="ibox bg-danger color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong">{{ $jumlah_antrian-1 }}</h2>
+                                    <div class="m-b-5">Jumlah Antrian</div><i class="ti-user widget-stat-icon"></i>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                            <div class="ibox bg-danger color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong"><a class="btn btn-warning" onClick="return confirm('Yakin ingin reset ?, Saat direset data user anda akan disimpan ke database sebagai log agar tidak disalah gunakan.')" href="">Reset</a></h2>
+                                    <div class="m-b-5">Reset Antrian</div><i class="ti-user widget-stat-icon"></i>
+                                </div>
+                            </div>
+                    </div>
+                    @endif
+                                    
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-success color-white widget-stat">
                             <div class="ibox-body">
@@ -39,8 +75,7 @@
                                 <div class="m-b-5">Pasien</div><i class="ti-user widget-stat-icon"></i>
                                 <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
                             </div>
-                        </div>
-                    </div>
+                        </div></div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
@@ -55,14 +90,16 @@
                                         <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);">
                                             <div class="text-muted">Hari Ini</div>
                                             <div>
-                                                <span class="h2 m-0">850</span>
+                                            
+                                                <span class="h2 m-0">{{ count($date_pasien_harian) }}</span>
                                                 <span class="text-success ml-2"><i class="fa fa-level-up"></i> +25%</span>
+                                                
                                             </div>
                                         </div>
                                         <div class="px-3">
-                                            <div class="text-muted">Hari Lalu</div>
+                                            <div class="text-muted">Total</div>
                                             <div>
-                                                <span class="h2 m-0">240</span>
+                                                <span class="h2 m-0">{{ $total_pasien }}</span>
                                                 <span class="text-warning ml-2"><i class="fa fa-level-down"></i> -12%</span>
                                             </div>
                                         </div>
@@ -77,10 +114,10 @@
                     <div class="col-lg-4">
                         <div class="ibox">
                             <div class="ibox-head">
-                                <div class="ibox-title">Penyakit Paling Banyak</div>
+                                <div class="ibox-title">Status Covid-19</div>
                             </div>
                             <div class="ibox-body">
-                                <div class="row align-items-center">
+                                <!-- <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <canvas id="doughnut_chart" style="height:160px;"></canvas>
                                     </div>
@@ -89,92 +126,46 @@
                                         <div class="m-b-20 text-info"><i class="fa fa-circle-o m-r-10"></i>Tablet 27%</div>
                                         <div class="m-b-20 text-warning"><i class="fa fa-circle-o m-r-10"></i>Mobile 21%</div>
                                     </div>
-                                </div>
+                                </div> -->
+                                <?php $cd = json_decode($covid); ?>
                                 <ul class="list-group list-group-divider list-group-full">
-                                    <li class="list-group-item">Chrome
-                                        <span class="float-right text-success"><i class="fa fa-caret-up"></i> 24%</span>
+                                    <li class="list-group-item">Positif
+                                        <span class="float-right text-success"><i class="fa fa-caret-up"></i> {{ $cd[0]->positif }}</span>
                                     </li>
-                                    <li class="list-group-item">Firefox
-                                        <span class="float-right text-success"><i class="fa fa-caret-up"></i> 12%</span>
+                                    <li class="list-group-item">Sembuh
+                                        <span class="float-right text-success"><i class="fa fa-caret-up"></i> {{ $cd[0]->sembuh }}</span>
                                     </li>
-                                    <li class="list-group-item">Opera
-                                        <span class="float-right text-danger"><i class="fa fa-caret-down"></i> 4%</span>
+                                    <li class="list-group-item">Meninggal
+                                        <span class="float-right text-danger"><i class="fa fa-caret-down"></i> {{ $cd[0]->meninggal}}</span>
+                                    </li>
+                                    <li class="list-group-item">Dirawat
+                                        <span class="float-right text-danger"><i class="fa fa-caret-down"></i> {{ $cd[0]->dirawat}}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="ibox">
-                            <div class="ibox-head">
-                                <div class="ibox-title">Pasien Baru ( Real Time )</div>
-                                <div class="ibox-tools">
-                                    <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <!-- <a class="dropdown-item">option 1</a> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ibox-body">
-                                <table class="table table-striped table-hover" id="table_pasien">
-                                    <thead>
-                                        <tr>
-                                            <th>ID Pasien</th>
-                                            <th>Nama</th>
-                                            <th>Ruangan</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table_data">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <script>
-                $(document).ready( () => {
-                    $.ajax({
-                        type:"GET",
-                        url: '/dashboard/pasien/indexGrafik',
-                        success: function(data){
-                            $.each(data, (i, item) => {
-                                var html = '<tr>';
-                                html += '<td>'+item.nik+'</td>';
-                                html += '<td>'+item.nama+'</td>';
-                                html += '<td>'+item.ruangan+'</td>';
-                                html += '<td>'+item.status+'</td>';
-                                html += '</tr>'  
-                                $('#table_data').prepend(html);
+                
 
-                            })
-                            // console.log(data[0]['id_pasien'])
-                        }
-                    })
-                    setInterval(function () {
-                        // the second argument here will prevent the pagination
-                        // from reseting when the table is reloaded
-                        $('#table_pasien').ajax.reload( null, false );
-                    }, 3000);
-                })
-
-                $(function() {
+    $(function() {
     var a = {
-            labels: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+            labels: ["Senin","Selasa","Rabu",'Kamis',"Jumat","Sabtu","Minggu"],
             datasets: [{
-                label: "Data Grafik",
                 borderColor: 'rgba(52,152,219,1)',
                 backgroundColor: 'rgba(52,152,219,1)',
                 pointBackgroundColor: 'rgba(52,152,219,1)',
                 data: [
-                    <?php foreach($date_pasien as $no => $pasiens): ?>
-                        {{ $pasiens->jumlah_mingguan }},
-                    <?php endforeach; ?>
+                    {{ count($date_pasien['senin']) }},
+                    {{ count($date_pasien['selasa']) }},
+                    {{ count($date_pasien['rabu']) }},
+                    {{ count($date_pasien['kamis']) }},
+                    {{ count($date_pasien['jumat']) }},
+                    {{ count($date_pasien['sabtu']) }},
+                    {{ count($date_pasien['minggu']) }}
             ]
             }]
         },
@@ -188,74 +179,6 @@
         data: a,
         options: t
     });
-
-  $('#world-map').vectorMap({
-    map: 'world_mill_en',
-    backgroundColor: 'transparent',
-    regionStyle: {
-        initial: {
-            fill: '#DADDE0',
-        }
-    },
-    showTooltip: true,
-    onRegionTipShowx: function(e, el, code){
-        el.html(el.html()+' (Visits - '+mapData[code]+')');
-    },
-    markerStyle: {
-      initial: {
-        fill  : '#3498db',
-        stroke: '#333'
-      }
-    },
-    markers: [
-      {
-        latLng: [1.3, 103.8],
-        name: 'Singapore : 203'
-      },
-      {
-        latLng: [38, -105],
-        name: 'USA : 755',
-      },
-      {
-        latLng: [58, -115],
-        name: 'Canada : 700',
-      },
-      {
-        latLng: [-25, 140],
-        name: 'Australia : 304',
-      },
-      {
-        latLng: [55.00, -3.50],
-        name: 'UK : 202',
-      },
-      {
-        latLng: [21, 78],
-        name: 'India : 410',
-      },
-      {
-        latLng: [25.00, 54.00],
-        name: 'UAE : 180',
-      }
-    ]
-  });
-
-  
-  var doughnutData = {
-      labels: ["Desktop","Tablet","Mobile" ],
-      datasets: [{
-          data: [47,30,23],
-          backgroundColor: ["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)"]
-      }]
-  } ;
-
-
-  var doughnutOptions = {
-      responsive: true,
-      legend: {
-        display: false
-      },
-  };
-
 
   var ctx4 = document.getElementById("doughnut_chart").getContext("2d");
   new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
