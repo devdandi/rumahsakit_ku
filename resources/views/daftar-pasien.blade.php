@@ -31,10 +31,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php $no = 1; ?>
-                                        @foreach($pasien as $pasiens)
+                                    
+                                        @foreach($pasien as $no => $pasiens)
+                                        
                                             <tr>
-                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $pasien->firstItem() + $no }}</td>
                                                 <td>{{ $pasiens->nama }}</td>
                                                 <td>{{ $pasiens->no_antrian }}</td>
                                                 <td>{{ $pasiens->jenis_kelamin }}</td>
@@ -56,12 +57,13 @@
 
                                     </tbody>
                                 </table>
+                                {{ $pasien->links()}}
 
                             </div>
                         </div>
                     </div>
-                   
-                </div>
+                
+                
 </div>
 
 @endsection

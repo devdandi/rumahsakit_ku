@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Apotek Demo | Devours.org</title>
+  <title>KlinikiTa Demo | Devours.org</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -61,16 +61,14 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="index.html">ApotekU</a></h1>
+      <h1 class="logo mr-auto"><a href="/">KlinikiTa</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="/">Halaman Utama</a></li>
-          <li><a href="#about">Tentang Kami</a></li>
           <li><a href="#services">Layanan</a></li>
-          <li><a href="#departments">Apotek Kami</a></li>
           <li><a href="#doctors">Dokter</a></li>
           <li><a href="#contact">Hubungi Kami</a></li>
 
@@ -85,9 +83,9 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
     <div class="container">
-      <h1>Selamat Datang Di Apotek Demo</h1>
+      <h1>Selamat Datang Di KlinikiTa Demo</h1>
       <h2>Melayani masyarakat sepenuh hati.</h2>
-      <a href="#about" class="btn-get-started scrollto">Tentang Kami</a>
+      <!-- <a href="#about" class="btn-get-started scrollto">Tentang Kami</a> -->
     </div>
   </section><!-- End Hero -->
 
@@ -270,7 +268,8 @@
           <p>Buat janji dengan dokter pilihan anda.</p>
         </div>
 
-        <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+        <form action="" method="post" role="form">
+          @csrf
           <div class="form-row">
             <div class="col-md-4 form-group">
               <input type="text" name="name" class="form-control" id="name" placeholder="Nama Anda" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
@@ -291,18 +290,11 @@
               <div class="validate"></div>
             </div>
             <div class="col-md-4 form-group">
-              <select name="department" id="department" class="form-control">
-                <option value="">Keluhan Anda</option>
-                <option>Penyakit Dalam</option>
-                <option>Penyakit Luar</option>
-                <option>Lainnya</option>
-              </select>
-              <div class="validate"></div>
-            </div>
-            <div class="col-md-4 form-group">
-              <select name="doctor" id="doctor" class="form-control">
-                <option value="">Pilih Dokter</option>
-                <option>Dr. Dandi Ramdani ( Spesialis Hati )</option>
+              <select name="keluhan" id="department" class="form-control">
+                <option value="">Penyakit Anda</option>
+                @foreach($get_spesialis as $spesialis)
+                  <option value="{{ $spesialis->spesialis }}">{{ $spesialis->spesialis }}</option>
+                @endforeach
               </select>
               <div class="validate"></div>
             </div>
@@ -314,10 +306,15 @@
           </div>
           <div class="mb-3">
             <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Perjanjian anda sudah dikirim, anda akan mendapatkan informasi yang dikirim ke email. Terimakasih !</div>
+            @if($message = Session::get('error'))
+              <div class="error-message"> {{ $message }}</div>
+            @endif
+
+            @if($message = Session::get('success'))
+              <div class="sent-message">{{ $message }}</div>
+            @endif
           </div>
-          <div class="text-center"><button type="submit">Kirim Perjanjian</button></div>
+          <div class="text-center"><button class="btn btn-primary" type="submit">Kirim Perjanjian</button></div>
         </form>
 
       </div>
@@ -768,7 +765,8 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="/janji" method="post" role="form" class="php-email-form">
+              @csrf
               <div class="form-row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Nama Anda" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />

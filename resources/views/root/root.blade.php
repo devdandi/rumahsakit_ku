@@ -11,11 +11,12 @@
     <link href="{{ url('assets/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
     <link href="{{ url('assets/vendors/themify-icons/css/themify-icons.css') }}" rel="stylesheet" />
     <!-- PLUGINS STYLES-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <link href="{{ url('assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css') }}" rel="stylesheet" />
     <!-- THEME STYLES-->
     <link href="{{ url('assets/css/main.min.css') }}" rel="stylesheet" />
     <script src="{{ url('assets/js/jquery-3.5.1.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/i18n/id.js" type="text/javascript"></script>
@@ -165,6 +166,17 @@
                         </ul>
                     </li>
                     @endif
+                    @if($get_data[0]->level == "Dokter")
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                            <span class="nav-label">Menu Perjanjian</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="/dashboard/janji"><i class="ti-align-justify"></i> Daftar Perjanjian</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
                     @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Finance")
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon ti-money"></i>
@@ -202,9 +214,6 @@
                             </li>
                             <li>
                                 <a href="/dashboard/tambah/obat"><i class="ti-align-justify"></i> Tambah Obat</a>
-                            </li>
-                            <li>
-                                <a href="/dashboard/tambah/resep"><i class="ti-calendar"></i> Tambah Resep</a>
                             </li>
                         </ul>
                     </li>

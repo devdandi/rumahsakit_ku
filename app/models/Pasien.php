@@ -11,6 +11,7 @@ class Pasien extends Model
     
     public function getByWeek()
     {
+        // dd(\Carbon\Carbon::parse($ca[0]->created_at)->format('l'));
         $array = array();
         $senin = DB::table('pasiens')->where('day','Senin')->get();
         $selasa = DB::table('pasiens')->where('day','Selasa')->get();
@@ -27,6 +28,10 @@ class Pasien extends Model
         $array['sabtu'] = $sabtu;
         $array['minggu'] = $minggu;
         return $array;
+        // return DB::table('pasiens')->get();
+        // $c =  DB::select(DB::raw('SELECT created_at, COUNT(created_at) as total FROM pasiens GROUP BY created_at'));
+        // return response()->json($c);
+        // return DB::table('pasien')->get();
 
     }
     public function getByDay()
@@ -43,4 +48,12 @@ class Pasien extends Model
     {
         
     }
+    // public function getByMonth()
+    // {
+    //     $c = DB::select(DB::raw("COUNT(*) as count"))
+    //     ->whereYear('created_at', date('Y'))
+    //     ->groupBy(\DB::raw("Month(created_at)"))
+    //     ->pluck('count');
+    //     return response()->json($c);
+    // }
 }

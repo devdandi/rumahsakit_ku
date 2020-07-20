@@ -53,6 +53,7 @@
             </div>
             <div class="form-group">
                 <button id="btn-login" class="btn btn-info btn-block" name="submit" type="submit">Masuk</button>
+                <a href="/login/dokter">Masuk sebagai dokter ?</a>
             </div>
         </form>
     </div>

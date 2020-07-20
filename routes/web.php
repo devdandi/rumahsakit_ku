@@ -13,8 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/','FrontPage@index');
+Route::post('/','FrontPage@proses_janji');
+Route::get('/dashboard/janji', 'Janji@index');
+Route::get('/dashboard/profile','Profile@index');
 Route::get('/login', 'User@index');
 Route::post('/login', 'User@login');
+
+Route::get('/login/dokter', 'User@index_dokter');
+Route::post('/login/dokter', 'User@login_dokter');
+
 Route::get('/dashboard', 'Dashboard@index');
 Route::get('/dashboard/dokter', 'Dokter@index');
 Route::get('/dashboard/dokter/tambah', 'Dokter@tambah');
@@ -42,6 +49,29 @@ Route::get('/dashboard/antrian', 'Antrian@index');
 
 Route::get('/dashboard/pasien/obat','Pasien@obat');
 Route::get('/dashboard/pasien/obat/{id}','Pasien@proses_pembelian');
+Route::post('/dashboard/pasien/obat/{id}','Pasien@proses_pembelian_obat');
+Route::get('/dashboard/pasien/obat/checkout/{id}','Pasien@checkout_obat');
+Route::post('/dashboard/pasien/obat/checkout/{id}','Pasien@proses_checkout_obat');
+Route::get('/dashboard/pasien/payment/success/{id}', 'Payment@index');
+Route::get('/dashboard/invoice/{id}', 'Invoice@index');
+Route::get('/dashboard/janji/edit/{id}', 'Janji@edit');
+Route::post('/dashboard/janji/edit/{id}', 'Janji@proses_edit');
+Route::get('/cancel/{id}', 'Janji@cancel');
+Route::get('/dashboard/keuangan', 'KeuanganController@index');
+Route::post('/dashboard/keuangan', 'KeuanganController@proses');
+Route::get('/dashboard/keuangan/result/{dari}/{sampai}', 'KeuanganController@result');
+Route::get('/dashboard/antrian/hapus/{id}', 'Antrian@hapus');
+Route::get('/dashboard/tambah/obat', 'Tambah@tambah_obat');
+Route::post('/dashboard/tambah/obat', 'Tambah@proses_tambah_obat');
+Route::get('/dashboard/obat', 'Obat@index');
+
+Route::get('/antrian/daftar/{email}/{date}', 'Antrian@tambahonline');
+
+
+
+
+
+
 
 
 

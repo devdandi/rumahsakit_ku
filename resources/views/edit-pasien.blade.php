@@ -2,6 +2,8 @@
 @section('content')
 
 <script type="text/javascript">
+var array = []
+var array_stok = []
   $(document).ready(function() {
       $('#spesialis').select2({
         placeholder: " Pilih...",
@@ -83,11 +85,18 @@
                                     <div id="spesialis-new" class="form-group row">
                                         <label class="col-sm-2 col-form-label">Resep</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="resep[]" style="width: 200px;" id="resep-obat" multiple="multiple">
+                                            <select class="form-control" name="resep[]" style="width: 200px;" id="resep-obat" multiple="multiple" >
                                             @foreach($obat as $obats)
-                                                <option value="{{ $obats->id_obat }}">{{ $obats->nama }}</option>
+                                                <option value="{{ $obats->id_obat }}">{{ $obats->nama }} Stok ( {{ $obats->jumlah }} )</option>
                                             @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="" id="divs"></div>
+                                    <div id="spesialis-new" class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Pesan</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="pesan" placeholder="Contoh: Oskadon 1, Nafasin 3" id="" class="form-control" cols="20" rows="5"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -105,76 +114,7 @@
 
 <script>
     $(document).ready(function(){
-        $('#password-manual-c').click(function(){
-            $('#password-manual').attr('hidden','')
-            $('#password-otomatis').removeAttr('hidden','')
-        })
-        $('#password-otomatis-c').click(function(){
-            $('#password-manual').removeAttr('hidden','')
-            $('#password-otomatis').attr('hidden','')
-        })
-        $('#jabatan').change(function(){
-            if(this.value == "Dokter")
-            {
-                $('#spesialis-new').removeAttr('hidden','')
-            }else{
-                $('#spesialis-new').attr('hidden','')
 
-            }
-        })
-        $('#btn-lock').on('click', function(){
-            $('#input-nik').removeAttr('readonly','')
-            $('#btn-lock').attr('hidden','')
-            $('#btn-unlock').removeAttr('hidden','')
-        })
-        $('#btn-unlock').on('click', function(){
-            $('#input-nik').attr('readonly','')
-            $('#btn-lock').removeAttr('hidden','')
-            $('#btn-unlock').attr('hidden','')
-
-        })
-        $('#email').change(function(){
-            if(this.value == ''){
-                $('#status-ada').attr('hidden','')
-                $('#checking').attr('hidden','')
-                $('#status-a').attr('hidden','')
-            }else{
-                let data = "email=" + $('#email').val()
-                $.ajax({
-
-                    url: '/akun/check',   // sending ajax request to this url
-                    type: 'get',
-                    data: data,
-
-                // before ajax request
-                beforeSend: function() {
-                    $('#checking').removeAttr('hidden','')
-
-                },	
-
-                // on success response
-                success:function(response) {
-                    if(response == 1) {
-                        $('#buttons').attr('disabled','')
-                        $('#status-ada').removeAttr('hidden','')
-                        $('#checking').attr('hidden','')
-                    }else{
-                        $('#buttons').removeAttr('disabled','')
-
-                        $('#checking').attr('hidden','')
-                        $('#status-a').removeAttr('hidden','')
-
-                    }
-                },
-
-                // error response
-                error:function(e) {
-                    $("#result").html("Some error encountered.");
-                }
-
-                });
-            }
-        })
-    })
+})
 </script>
 @endsection

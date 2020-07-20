@@ -36,7 +36,7 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ htmlspecialchars($antrians->no_antrian) }}</td>
                                                 <td>{{ htmlspecialchars($antrians->status) }}</td>
-                                                <td><a href="/dashboard/pasien/tambah/{{$antrians->no_antrian }}">Panggil</a> / <a href="#">Hapus</a></td>
+                                                <td><a href="/dashboard/pasien/tambah/{{$antrians->no_antrian }}">Panggil</a> / <a onClick="return confirm('Yakin') " href="/dashboard/antrian/hapus/{{ $antrians->no_antrian }}">Hapus</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -1,5 +1,6 @@
 @extends('root.root')
 @section('content')
+
 <script type="text/javascript">
   $(document).ready(function() {
       $('#spesialis').select2({
@@ -81,11 +82,25 @@
                                                 @endforeach
                                         </div>
                                     </div>
+                                    <div id="password-manual" class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Pesan Dokter</label>
+                                        <div class="col-sm-10">
+                                            <p style="color: red">{{ $data[0]->pesan }}</p>
+                                        </div>
+                                    </div>
                                     <div id="spesialis-new" class="form-group row">
                                         <label class="col-sm-2 col-form-label">Resep</label>
                                         <div class="col-sm-10">
-                                            <?php $explode_id_obat = explode("|",$data[0]->resep); ?>
-                                            
+                                            <?php $total = 0; ?>
+                                            @foreach($data_obat as $obat_pasien)
+                                                <li style="color: green">{{ $obat_pasien[0]->nama }}  (Rp. {{ number_format($obat_pasien[0]->harga) }} )</li>
+                                                    <select name="qty[]" id="qty">
+                                                        @for($i = 1; $i < 20; $i++)
+                                                            <option value="{{$i}}|{{ $obat_pasien[0]->nama }}|{{$obat_pasien[0]->harga}}">{{$i}}</option>
+                                                        @endfor
+                                                    </select>
+                                                    <?php  $total += $obat_pasien[0]->harga; ?>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -97,7 +112,6 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
                     </div>
 </div>
 
@@ -172,6 +186,9 @@
 
                 });
             }
+        })
+        $('#qty').change(function(){
+            console.log($('#qty').val())
         })
     })
 </script>

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\User as Login;
 use App\Http\Controllers\EmailControl;
+use App\models\Dokter;
 
 class User extends Controller
 {
     public $email;
+    public $level_login = '';
 
     public function index()
     {
@@ -25,28 +27,30 @@ class User extends Controller
             $user = new Login;
             $check_email = $user->where('email', $req->email)->count();
             if($check_email == 0) {
-                return redirect('/')->with(['error' => 'Email tidak terdaftar !']);
+                return redirect('/login')->with(['error' => 'Email tidak terdaftar !']);
             }else{
                 $login = $user->where('email', $req->email)->where('password', $req->password);
                 if($login->count() > 0) {
                     $c = $login->get();
                     $req->session()->put('id_user', $c[0]->id_user);
                     $req->session()->put('email', $req->email);
+                    $req->session()->put('level', $c[0]->level);
+
                     if(session()->get('id_user') != '' && session()->get('email') != '') 
                     {
                         if($c[0]->status == "aktif") {
                             $this->email = $req->email;
                             return redirect('/dashboard');
                         }else if($c[0]->status == "block"){
-                            return redirect('/')->with(['error' => 'Akun anda dinonaktifkan, mungkin karena pelanggaran !']);
+                            return redirect('/login')->with(['error' => 'Akun anda dinonaktifkan, mungkin karena pelanggaran !']);
                         }else{
-                            return redirect('/')->with(['error' => 'Akun anda belum diaktifkan, silahkan cek email anda !']);
+                            return redirect('/login')->with(['error' => 'Akun anda belum diaktifkan, silahkan cek email anda !']);
                         }
                     }else{
-                        return redirect('/')->with(['error' => 'Aduh, ada kesalahan !']);
+                        return redirect('/login')->with(['error' => 'Aduh, ada kesalahan !']);
                     }
                 }else{
-                    return redirect('/')->with(['error' => 'Email atau password salah !']);
+                    return redirect('/login')->with(['error' => 'Email atau password salah !']);
                 }
             }
         }else{
@@ -70,5 +74,47 @@ class User extends Controller
         }else{
             return redirect('/')->with(['error' => 'Email tidak terdaftar !']);
         }
+    }
+    public function index_dokter()
+    {
+        return view('login-dokter');
+    }
+    public function login_dokter(Request $req)
+    {
+        if(isset($_POST['submit'])) {
+            $user = new Dokter;
+            $check_email = $user->where('email', $req->email)->count();
+            if($check_email == 0) {
+                return redirect('/login/dokter')->with(['error' => 'Email tidak terdaftar !']);
+            }else{
+                $login = $user->where('email', $req->email)->where('password', $req->password);
+                if($login->count() > 0) {
+                    $c = $login->get();
+                    $req->session()->put('id_user', $c[0]->id_dokter);
+                    $req->session()->put('email', $req->email);
+                    $req->session()->put('level', "dokter");
+
+                    $this->level_login = $c[0]->level;
+                    if(session()->get('id_user') != '' && session()->get('email') != '') 
+                    {
+                        if($c[0]->status == "aktif") {
+                            $this->email = $req->email;
+                            return redirect('/dashboard');
+                        }else if($c[0]->status == "block"){
+                            return redirect('/login/dokter')->with(['error' => 'Akun anda dinonaktifkan, mungkin karena pelanggaran !']);
+                        }else{
+                            return redirect('/login/dokter')->with(['error' => 'Akun anda belum diaktifkan, silahkan cek email anda !']);
+                        }
+                    }else{
+                        return redirect('/login/dokter')->with(['error' => 'Aduh, ada kesalahan !']);
+                    }
+                }else{
+                    return redirect('/login/dokter')->with(['error' => 'Email atau password salah !']);
+                }
+            }
+        }else{
+            return view('login-dokter');
+        }
+        
     }
 }

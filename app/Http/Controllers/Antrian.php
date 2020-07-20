@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\Antrian as Antrians;
 use App\models\User;
+use App\Http\Controllers\EmailControl;
 use Codedge\Fpdf\Fpdf\Fpdf;
 
 class Antrian extends Controller
 {
+    private $antrian;
+    private $user;
+    function __construct()
+    {
+        
+    }
     public function index()
     {
         $user = new User;
@@ -50,5 +57,35 @@ class Antrian extends Controller
         $fpdf->Cell(40, 10, 'Nomor Antrian : '. $id);
         $fpdf->Output();
         exit;
+    }
+    public function hapus($id)
+    {
+        $antrian = new Antrians;
+        $antrian->where('no_antrian', $id)->delete();
+        return redirect()->back()->with(['success' => 'Antrian berhasil dihapus !']);
+    }
+    public function tambahonline($emails, $date)
+    {
+        
+        if(strtotime($date) == strtotime(date('Y-m-d')))
+        {
+            $email = new EmailControl;
+            $antrian = new Antrians;
+            $get_antrian = $antrian->all()->last();
+            $hasil = $get_antrian->no_antrian+1;
+            $save = $antrian->create([
+                'no_antrian' => $hasil,
+                'status' => 'menunggu'
+            ]);
+            if($save)
+            {
+                if($email->sendAntrian($emails, $hasil)){
+                return redirect('/');
+                }
+            }
+            
+        }else{
+            echo 'gagal';
+        }
     }
 }

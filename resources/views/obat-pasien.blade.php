@@ -5,7 +5,7 @@
                     <div class="col-md">
                         <div class="ibox">
                             <div class="ibox-head">
-                                <div class="ibox-title">Daftar Dokter</div>
+                                <div class="ibox-title">Daftar Pasien Menunggu Obat</div>
                             </div>
                             <div class="ibox-body">
                                 @if($message_ok = Session::get('success'))

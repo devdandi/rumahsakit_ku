@@ -31,10 +31,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php $no = 1; ?>
-                                        @foreach($data_dokter as $data) 
+         
+                                        @foreach($data_dokter as $no => $data) 
                                             <tr>
-                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $data_dokter->firstItem() + $no }}</td>
                                                 <td>{{ $data->nik }}</td>
                                                 <td>{{ $data->nama }}</td>
                                                 <td>{{ $data->email }}</td>
@@ -51,6 +51,6 @@
                     </div>
                    
                 </div>
-</div>
+
 
 @endsection
