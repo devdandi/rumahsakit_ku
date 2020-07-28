@@ -11,6 +11,9 @@
                             @if($message = Session::get('success'))
                             <div class="alert alert-success" role="alert">
                                 {{ $message }}
+                                @if($me = Session::get('link_manufaktur'))
+                                    <a class="btn btn-primary" href="{{ $me }}">Lihat Manufaktur</a>
+                                @endif
                             </div>
                             @endif
                             @if($messages = Session::get('error'))
@@ -80,9 +83,15 @@
                                         </div>
                                     </div>   
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Harga</label>
+                                        <label class="col-sm-2 col-form-label">Harga Dari Supplier</label>
                                         <div class="col-sm-10">
                                             <input class="form-control" style="width: 200px;" name="harga"  type="text">
+                                        </div>
+                                    </div>    
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Harga Jual</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" style="width: 200px;" name="harga_jual"  type="text">
                                         </div>
                                     </div>     
                                     <div class="form-group row">

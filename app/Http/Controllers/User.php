@@ -89,16 +89,16 @@ class User extends Controller
             }else{
                 $login = $user->where('email', $req->email)->where('password', $req->password);
                 if($login->count() > 0) {
+                    // dd($login->count());
                     $c = $login->get();
                     $req->session()->put('id_user', $c[0]->id_dokter);
                     $req->session()->put('email', $req->email);
-                    $req->session()->put('level', "dokter");
+                    $req->session()->put('level', 'dokter');
 
                     $this->level_login = $c[0]->level;
                     if(session()->get('id_user') != '' && session()->get('email') != '') 
                     {
                         if($c[0]->status == "aktif") {
-                            $this->email = $req->email;
                             return redirect('/dashboard');
                         }else if($c[0]->status == "block"){
                             return redirect('/login/dokter')->with(['error' => 'Akun anda dinonaktifkan, mungkin karena pelanggaran !']);

@@ -18,7 +18,7 @@ use App\Charts\UserLineChart;
 
 
 class Dashboard extends Controller
-{
+{   
     public function index()
     {
         $array = array();

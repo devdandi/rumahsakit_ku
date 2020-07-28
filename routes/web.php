@@ -64,6 +64,10 @@ Route::get('/dashboard/antrian/hapus/{id}', 'Antrian@hapus');
 Route::get('/dashboard/tambah/obat', 'Tambah@tambah_obat');
 Route::post('/dashboard/tambah/obat', 'Tambah@proses_tambah_obat');
 Route::get('/dashboard/obat', 'Obat@index');
+Route::get('/dashboard/report/manufaktur-obat', 'ReportAll@manufaktur_obat');
+Route::post('/dashboard/report/manufaktur-obat', 'ReportAll@filter_manufaktur_obat');
+Route::get('/dashboard/report/manufaktur-obat/{id}', 'ReportAll@manufaktur_obat_detail');
+
 
 Route::get('/antrian/daftar/{email}/{date}', 'Antrian@tambahonline');
 

@@ -21,7 +21,7 @@
         <div class="brand">
             <a class="link" href="/">KlinikiTa Demo</a>
         </div>
-        <form id="login-form" action="/login/dokter" method="post">
+        <form id="login-form" action="" method="post">
         @csrf
 
             <h2 class="login-title">Masuk Sebagai Dokter</h2>

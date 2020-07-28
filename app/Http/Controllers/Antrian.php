@@ -21,7 +21,7 @@ class Antrian extends Controller
         $user = new User;
         $get_data = $user->where('email', session()->get('email'))->get();
         $antrian = new Antrians;
-        $get_antrian = $antrian->where('status','!=','first_antrian')->paginate(10);
+        $get_antrian = $antrian->where('status','!=','first')->paginate(10);
         return view('daftar-antrian',['get_data' => $get_data,'antrian' => $get_antrian]);
     }
     public function tambah()

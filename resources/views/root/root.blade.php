@@ -180,10 +180,19 @@
                     @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Finance")
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon ti-money"></i>
-                            <span class="nav-label">Laporan Keuangan</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Menu Laporan</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="/dashboard/keuangan"><i class="fa fa-bar-chart"></i> Grafik</a>
+                                <a href="/dashboard/keuangan"><i class="fa fa-bar-chart"></i>Transaksi</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/keuangan/report-keuangan"><i class="fa fa-bar-chart"></i>Keuangan</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/report/manufaktur-obat"><i class="fa fa-bar-chart"></i>Manufaktur & Obat</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/pasien/laporan"><i class="fa fa-bar-chart"></i>Pasien</a>
                             </li>
                         </ul>
                     </li>

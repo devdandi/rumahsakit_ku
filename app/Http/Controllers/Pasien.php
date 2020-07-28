@@ -17,6 +17,7 @@ use App\models\Transaksi;
 
 class Pasien extends Controller
 {
+    private $user;
     public function index()
     {
         $user = array();
@@ -218,9 +219,13 @@ class Pasien extends Controller
     }
     public function checkout_obat($id)
     {
+        if(session()->get('level') == "dokter"){
+            $this->user = new Dokter;
+        }else{
+            $this->user = new User;
 
-        $user = new User;
-        $get_data = $user->where('email',session()->get('email'))->get();
+        }
+        $get_data = $this->user->where('email',session()->get('email'))->get();
         $pasien = new Pasiens;
         $transaksi = new TransaksiSementara;
         $get_tr = $transaksi->where('id_pasien', $id)->get();

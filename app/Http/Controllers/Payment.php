@@ -26,6 +26,10 @@ class Payment extends Controller
         $this->obat = new Obat;
 
     }
+    public function notification(Request $req)
+    {
+        
+    }
     public function index($id)
     {
  
