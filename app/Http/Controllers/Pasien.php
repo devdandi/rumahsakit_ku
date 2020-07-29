@@ -188,7 +188,6 @@ class Pasien extends Controller
     }
     public function proses_pembelian_obat(Request $req)
     {
-        
         $transaksi = new TransaksiSementara;
         $check = $transaksi->where('id_pasien', $req->id)->count();
         if($check > 0) {
@@ -199,6 +198,7 @@ class Pasien extends Controller
             $ex = explode("|", $data);
             for($i = 0; $i < count($ex)-2; $i++)
             {
+                // dd($data);
                 $c = $transaksi->create(['id_pasien' => $req->id,'data' => $ex[0],'nama_obat' => $ex[1],'harga' => $ex[2]]);
             }
             
@@ -219,6 +219,7 @@ class Pasien extends Controller
     }
     public function checkout_obat($id)
     {
+        // dd('a');
         if(session()->get('level') == "dokter"){
             $this->user = new Dokter;
         }else{
@@ -234,6 +235,7 @@ class Pasien extends Controller
     }
     public function proses_checkout_obat(Request $req)
     {
+        
         $data = array();
         if($req->id == null OR $req->id == '')
         {
@@ -260,8 +262,10 @@ class Pasien extends Controller
             'total' => $req->subtotal,
             'day' => $day->index()
         ]);
+        // $del = $transaksi_s->where('id_pasien', $req->id)->delete();
         if($save)
         {
+            
             return redirect('/dashboard/pasien/payment/success/'.$req->id);
         }else{
             return redirect('/dashboard/pasien/payment/failed/'.$req->id);
