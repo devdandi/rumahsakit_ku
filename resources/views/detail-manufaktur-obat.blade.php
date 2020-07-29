@@ -31,6 +31,7 @@
                                             <th>Sisa Stok</th>
                                             <th>Pendapatan</th>
                                             <th>Status</th>
+                                            <th>Opsi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +46,6 @@
                                                 <td>{{ $data['stok_awal'][$data['nama_obat'][$no]] }}</td>
                                                 <td>{{ $data['detail_stok'][$data['nama_obat'][$no]] }}</td>
                                                 <td>{{ $data['stok_asli'][$data['nama_obat'][$no]] }}</td>
-                                                
                                                 <td>Rp. {{ number_format($data['detail_stok'][$data['nama_obat'][$no]] * $obat->harga)}}</td>
                                                 <td>{{ $data['status'][$data['nama_obat'][$no]] }}</td>
 

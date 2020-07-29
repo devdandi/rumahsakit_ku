@@ -48,7 +48,7 @@
                                         <td>{{ number_format($data->semua_stok) }}</td>
                                         <td>Rp. {{ number_format($data->harus_dibayar) }}</td>
                                         <?php $ex_name = str_replace(' ', '-', $data->manufaktur); ?>
-                                        <td><a href="#">Bayar</a>/<a href="/dashboard/report/manufaktur-obat/{{$ex_name}}">Lihat</a></td>
+                                        <td><a href="/dashboard/report/manufaktur-obat/{{$ex_name}}" class="btn btn-primary">Lihat</a></td>
                                     </tr>
                                        @endforeach
                                     </tbody>

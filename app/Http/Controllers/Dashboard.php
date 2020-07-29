@@ -90,10 +90,10 @@ class Dashboard extends Controller
             // 'total_uang' => $total_uang,
             'total_uang' => 0,
             'total_pasien' => $pasien->count(),
-            'pembayaran' => $transaksi->where('status','berhasil')->count(),
+            'pembayaran' => $transaksi->where('status','berhasil')->where('created_at', 'LIKE', '%'.date('Y-m-d').'%')->count(),
             // 'pembayaran' => 0,
 
-            'transaksi_sementara' => $tr_sementara->count()
+            'transaksi_sementara' => $tr_sementara->where('created_at', 'LIKE', '%'.date('Y-m-d').'%')->count()
             // 'chart' => $chart
             // 'covid' => $covid->getApi()
             ]);

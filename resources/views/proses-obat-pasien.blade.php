@@ -93,13 +93,13 @@
                                         <div class="col-sm-10">
                                             <?php $total = 0; ?>
                                             @foreach($data_obat as $obat_pasien)
-                                                <li style="color: green">{{ $obat_pasien[0]->nama }}  (Rp. {{ number_format($obat_pasien[0]->harga) }} )</li>
+                                                <li style="color: green">{{ $obat_pasien[0]->nama }}  (Rp. {{ number_format($obat_pasien[0]->harga_jual) }} )</li>
                                                     <select name="qty[]" id="qty">
                                                         @for($i = 1; $i < 20; $i++)
-                                                            <option value="{{$i}}|{{ $obat_pasien[0]->nama }}|{{$obat_pasien[0]->harga}}">{{$i}}</option>
+                                                            <option value="{{$i}}|{{ $obat_pasien[0]->nama }}|{{$obat_pasien[0]->harga_jual}}">{{$i}}</option>
                                                         @endfor
                                                     </select>
-                                                    <?php  $total += $obat_pasien[0]->harga; ?>
+                                                    <?php  $total += $obat_pasien[0]->harga_jual; ?>
                                             @endforeach
                                         </div>
                                     </div>
