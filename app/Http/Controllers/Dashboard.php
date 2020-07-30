@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+// including a mode that i build on \app\models\here
+use DB;
 use Illuminate\Http\Request;
 use App\models\User;
 use App\models\Pasien;
@@ -11,106 +14,126 @@ use App\models\Antrian;
 use App\models\Dokter;
 use App\models\Transaksi;
 use App\models\TransaksiSementara;
-
-
-use DB;
-use App\Charts\UserLineChart;
+// end including
 
 
 class Dashboard extends Controller
 {   
-    public function index()
+
+    // make property in class Dashboard
+    protected $maintenance = false;
+    public $antrian;
+    public $user;
+    protected $pasien;
+    protected $transaksi;
+    protected $transaksiSementara;
+    protected $level;
+    // end property
+
+
+    // this function is first running if the class Dashboard is accessed
+    function __construct()
     {
-        $array = array();
-        date_default_timezone_set('Asia/Jakarta');
-        if(session()->get('id_user') == null AND session()->get('email') == null)
+        // if website is maintenance, change the property maintenance to true, and then the website will disable for temporary until maintenance finished
+        if($this->maintenance == true)
         {
-            return redirect('/')->with(['error' => 'Login terlebih dahulu !']);
+            return 'maintenance mode';
         }
-        if($c = session()->get('login')) {
-            echo $c;
-        }
-        $array = '';
-        $user = array();
-        $total_uang = 0;
-        $jumlah_pasien = 0;
+        // end construct
+
+        // set date time to indonesia
+        date_default_timezone_set('Asia/Jakarta');
+
+        // initialization property
+        $this->antrian = new Antrian;
+        $this->pasien = new Pasien;
+        $this->transaksi = new Transaksi;
+        $this->transaksiSementara = new TransaksiSementara;
+        $this->level = session()->get('level');
+        // end initialization
+    }
+    
+    
+
+
+
+    // function for validate user if that user login as doctor or user ordinary
+    function validateLogin()
+    {
         if(session()->get('level') == "dokter")
         {
-            $user['data'] = new Dokter;
+            return $this->user = new Dokter;
         }else{
-            $user['data'] = new User;
+            return $this->user = new User;
+
         }
-        $get_data = $user['data']->where('email', session()->get('email'))->get();
-        $pasien = new Pasien;
-        $covid = new StatusCovid;
-        $antrian = new Antrian;
-        $get_antrian_before = $antrian->all()->last();
-        $jumlah_antrian = $antrian->count();
-        $transaksi = new Transaksi;
-
-        // $pasiens_grafik = $pasien->where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))->get();
-        // $chart = Charts::database($pasiens_grafik, 'bar', 'highcharts')
-        //  ->title("Jumlah Pasien Bulanan")
-        //  ->elementLabel("Total Pasien")
-        //  ->dimensions(1000, 500)
-        //  ->responsive(false)
-        //  ->groupByMonth(date('Y'), true);
-        // $date_pasien = Pasien::select(DB::raw("COUNT(*) as count"))
-        //             ->whereYear('created_at', date('Y'))
-        //             ->groupBy(\DB::raw("Month(created_at)"))
-        //             ->pluck('count');
-
-        // $chart = new UserLineChart;
-
-        // $pasienv = Pasien::select(\DB::raw("COUNT(*) as count"))
-        //             ->whereYear('created_at', date('Y'))
-        //             ->groupBy(\DB::raw("Month(created_at)"))
-        //             ->pluck('count');
-        // $chart->dataset('New User Register Chart', 'line', $pasienv)->options([
-        //         'fill' => 'true',
-        //         'borderColor' => '#51C1C0'
-        //     ]);
-        // $chart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])->load($chart->api());
-            // $ca = $pasien->getByWeek()->getData();
-            // dd(\Carbon\Carbon::parse($ca[0]->created_at)->format('l'));
-            // $transaksi = new Transaksi;
-            // $get_tr = $transaksi->all();
-            $tr_sementara = new TransaksiSementara;
-            // foreach($get_tr as $cnc)
-            // {
-            //     $total_uang += $cnc->total - $cnc->kembali;
-            // }
-        return view('index', [
-            'get_data' => $get_data,
-            'date_pasien' => $pasien->getByWeek(),
-            'date_pasien_harian' => $pasien->getByDay(),
-            'total_pasien' => $pasien->count(),
-            'antrian' => $get_antrian_before,
-            'jumlah_antrian' => $jumlah_antrian,
-            // 'total_uang' => $total_uang,
-            'total_uang' => 0,
-            'total_pasien' => $pasien->count(),
-            'pembayaran' => $transaksi->where('status','berhasil')->where('created_at', 'LIKE', '%'.date('Y-m-d').'%')->count(),
-            // 'pembayaran' => 0,
-
-            'transaksi_sementara' => $tr_sementara->where('created_at', 'LIKE', '%'.date('Y-m-d').'%')->count()
-            // 'chart' => $chart
-            // 'covid' => $covid->getApi()
-            ]);
     }
+    // end validate
+
+
+    // function for get email someone login
+    function getEmail()
+    {
+        return session()->get('email');
+    }
+    // end email function
+
+
+    // index that accessed of routes /domain:8000/dashboard
+    public function index()
+    {
+        // push data to proterty user
+        $this->user = $this->validateLogin();
+
+        // get data user that login to dashboard
+        $get_data = $this->user->where('email', $this->getEmail())->get();
+
+        // get pasien grafik weekly
+        $date_pasien = $this->pasien->getByWeek();
+    
+        // get the queue of last
+        $antrian = $this->antrian->all()->last();
+
+        // sum or plus income all day
+        $total_uang = $this->transaksi->sum('total');
+
+        // count total patient
+        $total_pasien = $this->pasien->count();
+
+        // get success transaction daily and count the success transaction
+        $pembayaran = $this->transaksi->where('status','berhasil')->where('created_at', 'LIKE', '%'.date('Y-m-d').'%')->count();
+
+        // get temporary transaction for patien that not pay to clinic and automatical deleted if transaction has success
+        $transaksi_sementara = $this->transaksiSementara->where('created_at', 'LIKE', '%'.date('Y-m-d').'%')->count();
+
+        // get patien based on daily
+        $date_pasien_harian = $this->pasien->getByDay();
+        
+        // show the index.blade.php and sending the logic and data to views index
+        return view('index', compact('get_data', 'date_pasien','antrian','pembayaran','transaksi_sementara','total_uang','total_pasien','date_pasien_harian'));
+    }
+    // end index function
+
+    // function debugging, you can test the code or view in this function
     public function test()
     {
         return view('invoice');
     }
+    // end function debugging
+
+    // function for logout user
     public function logout()
     {
-        session()->forget('id_user');
-        session()->forget('email');
-        session()->forget('level');
-        if(session()->get('id_user') == null AND session()->get('email') == null)
+        session()->forget('id_user'); // destroy id_user
+        session()->forget('email'); // destroy email
+        session()->forget('level'); // destroy level
+
+        // login if the session has been empty and will redirect to http://domain:8000/login
+        if(session()->get('id_user') == null AND session()->get('email') == null AND session()->get('level') == null)
         {
             return redirect('/login')->with(['success' => 'Logout Berhasil !']);
-
         }
+        // end login
     }
+    // end funciton logout
 }
