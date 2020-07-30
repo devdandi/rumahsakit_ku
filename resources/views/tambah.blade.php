@@ -34,7 +34,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Nama Lengkap</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" name="nama" type="text" placeholder="Nama Lengkap">
+                                            <input class="form-control" name="name" type="text" placeholder="Nama Lengkap">
                                         </div>
                                     </div>
                                     <div class="form-group row">

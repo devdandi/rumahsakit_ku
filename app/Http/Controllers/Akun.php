@@ -34,7 +34,7 @@ class Akun extends Controller
     {
         $log = new LoggingUser;
         $user = new User;
-        $user->name = $req->nama;
+        $user->name = $req->name;
         $user->email = $req->email;
         $user->status = "nonaktif";
         $user->password = $req->password;

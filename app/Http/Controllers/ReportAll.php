@@ -100,4 +100,14 @@ class ReportAll extends Controller
         $get_obata = $this->obat->where('manufaktur', $id)->paginate(10);
         return view('detail-manufaktur-obat', compact('get_data','data','get_obata'));
     }
+    public function pasien()
+    {
+        $get_data = $this->user->where('email', session()->get('email'))->get();
+        $get_pasien = DB::table('laporan_pasien_view')->paginate(10);
+        return view('detail-laporan-pasien', compact('get_data','get_pasien'));
+    }
+    public function filter_pasien(Request $req)
+    {
+
+    }
 }

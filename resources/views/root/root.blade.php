@@ -192,7 +192,7 @@
                                 <a href="/dashboard/report/manufaktur-obat"><i class="fa fa-bar-chart"></i>Manufaktur & Obat</a>
                             </li>
                             <li>
-                                <a href="/dashboard/pasien/laporan"><i class="fa fa-bar-chart"></i>Pasien</a>
+                                <a href="/dashboard/report/pasien"><i class="fa fa-bar-chart"></i>Pasien</a>
                             </li>
                         </ul>
                     </li>

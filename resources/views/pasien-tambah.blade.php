@@ -32,7 +32,8 @@
                                 {{ $messages }}
                             </div>
                             @endif
-                            <div class="ibox-body">
+                            <div id="pasien_baru" class="ibox-body">
+                            
                                 <form class="form-horizontal" method="post" action="">
                                 @csrf           
                                 <div class="form-group row">
@@ -107,6 +108,7 @@
                                     </div>
                                 </form>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

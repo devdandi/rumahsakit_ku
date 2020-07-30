@@ -91,9 +91,10 @@ class User extends Controller
                 if($login->count() > 0) {
                     // dd($login->count());
                     $c = $login->get();
-                    $req->session()->put('id_user', $c[0]->id_dokter);
-                    $req->session()->put('email', $req->email);
-                    $req->session()->put('level', 'dokter');
+                    session()->put('id_user', $c[0]->id_dokter);
+                    session()->put('email', $req->email);
+                    session()->put('level', 'dokter');
+                    // $_SESSION['level'] = "dokter";
 
                     $this->level_login = $c[0]->level;
                     if(session()->get('id_user') != '' && session()->get('email') != '') 
