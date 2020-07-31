@@ -32,25 +32,35 @@ class Dashboard extends Controller
 
 
     // this function is first running if the class Dashboard is accessed
-    function __construct()
+    function __construct(Dokter $dokter, User $user, Pasien $pasien, Transaksi $transaksi, TransaksiSementara $trs, Antrian $antrian)
     {
-        // if website is maintenance, change the property maintenance to true, and then the website will disable for temporary until maintenance finished
-        if($this->maintenance == true)
-        {
-            return 'maintenance mode';
-        }
-        // end construct
+        // dd($this->validateLogin());
+        // // if website is maintenance, change the property maintenance to true, and then the website will disable for temporary until maintenance finished
+        // if($this->maintenance == true)
+        // {
+        //     return 'maintenance mode';
+        // }
+        // // end construct
 
-        // set date time to indonesia
+        // // set date time to indonesia
         date_default_timezone_set('Asia/Jakarta');
 
-        // initialization property
-        $this->antrian = new Antrian;
-        $this->pasien = new Pasien;
-        $this->transaksi = new Transaksi;
-        $this->transaksiSementara = new TransaksiSementara;
-        $this->level = session()->get('level');
-        // end initialization
+        // // initialization property
+        // $this->antrian = new Antrian;
+        // $this->pasien = new Pasien;
+        // $this->transaksi = new Transaksi;
+        // $this->transaksiSementara = new TransaksiSementara;
+        // $this->level = session()->get('level');
+        // // end initialization
+
+        if($this->maintenance == true)
+        {
+            
+        }
+        $this->antrian = $antrian;
+        $this->transaksi = $transaksi;
+        $this->transaksiSementara = $trs;
+        $this->pasien = $pasien;
     }
     
     
@@ -60,12 +70,11 @@ class Dashboard extends Controller
     // function for validate user if that user login as doctor or user ordinary
     function validateLogin()
     {
-        if(session()->get('level') == "dokter")
+        if(session('level') == "dokter")
         {
-            return $this->user = new Dokter;
+            return 'dokter';
         }else{
-            return $this->user = new User;
-
+            return 'user';
         }
     }
     // end validate
@@ -74,16 +83,39 @@ class Dashboard extends Controller
     // function for get email someone login
     function getEmail()
     {
-        return session()->get('email');
+        return session('email');
     }
     // end email function
 
 
+    // function for notify logged user
+    private function notify()
+    {
+        if($this->validateLogin())
+        {
+            echo "<script>alert('Login sebagai ".$this->validateLogin()."')</script>";
+            session()->put('notif', 1);
+        }
+    }
+
     // index that accessed of routes /domain:8000/dashboard
     public function index()
     {
-        // push data to proterty user
-        $this->user = $this->validateLogin();
+        // validate user login with ?
+        if($this->validateLogin() == "dokter")
+        {
+            $this->user = new Dokter;
+        }else{
+            $this->user = new User;
+        }
+        // endif
+        
+        // funciton to show notify
+        if(session('notif') == 0)
+        {
+            $this->validateLogin();
+        }
+        // endnotif
 
         // get data user that login to dashboard
         $get_data = $this->user->where('email', $this->getEmail())->get();
