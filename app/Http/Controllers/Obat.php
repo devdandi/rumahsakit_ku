@@ -25,4 +25,9 @@ class Obat extends Controller
         $get_obat = $this->obat->paginate(10);
         return view('daftar-obat', compact('get_data','get_obat'));
     }
+
+    function ajaxObat()
+    {
+        return $_GET['data'];
+    }
 }

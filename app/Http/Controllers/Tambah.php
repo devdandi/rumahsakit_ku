@@ -8,6 +8,9 @@ use App\models\Spesialis;
 use App\models\LoggingUser;
 use App\models\Obat;
 use App\models\SupplierObat;
+use App\models\Manufaktur;
+use App\models\PurchaseOrder;
+
 
 
 
@@ -16,11 +19,15 @@ class Tambah extends Controller
     protected $data = [];
     protected $obat;   
     protected $user;
+    protected $purchase_order;
+    protected $manufaktur;
     protected $pesanController = "Melakukan permintaan untuk mengakses data spesialis";
-    function __construct()
+    function __construct(User $user, Manufaktur $manufaktur, Obat $obat, PurchaseOrder $order)
     {
-        $this->obat = new Obat;
-        $this->user = new User;
+        $this->manufaktur = $manufaktur;
+        $this->obat = $obat;
+        $this->user = $user;
+        $this->purchase_order = $order;
     }
     public function spesialis()
     {
@@ -86,5 +93,48 @@ class Tambah extends Controller
             return redirect()->back()->with(['error' => 'Obat dan manufaktur gagal ditambahkan !']);
 
         }
+    }
+    public function manufaktur($id)
+    {
+        $get_data = $this->user->where('email', session('email'))->get();
+        return view('tambah-manufaktur', compact('get_data'));
+    }
+    function proses_manufaktur(Request $req, $id)
+    {
+        $save = $this->manufaktur->create([
+            'id_unique' => $id,
+            'nama_manufaktur' => $req->manufaktur
+        ]);
+        if($save)
+        {
+            return redirect()->back()->with(['success' => 'Data Berhasil Disimpan !']);
+        }else{
+            return redirect()->back()->with(['error' => 'Data Gagal Disimpan !']);
+
+        }
+    }
+    public function tambahPurchaseOrder()
+    {
+        $manufaktur = $this->manufaktur->all();
+        $get_data = $this->user->where('email', session('email'))->get();
+        $get_user = $this->user->all();
+        $get_obat = $this->obat->all();
+
+        return view('tambah-purchase-order', compact('get_data', 'manufaktur','get_user','get_obat'));
+    }
+    public function prosestambahPurchaseOrder(Request $req)
+    {
+        for($i = 0; $i < count($req->nama_obat); $i++)
+        {
+            $this->purchase_order->create([
+                'id_manufaktur' => $req->manufaktur,
+                'nama_obat' => $req->nama_obat[$i],
+                'satuan' => $req->satuan[$i],
+                'jumlah' => $req->jumlah[$i],
+                'make_by' => session('email'),
+                'send_to' => $req->send_to
+            ]);
+        }
+        return redirect()->back()->with(['success' => 'Berhasil dikirim dan dibuat !']);
     }
 }

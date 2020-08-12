@@ -149,7 +149,7 @@ class Dashboard extends Controller
     // function debugging, you can test the code or view in this function
     public function test()
     {
-        return view('invoice');
+        return 'deleting database...';
     }
     // end function debugging
 

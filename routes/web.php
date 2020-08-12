@@ -93,6 +93,7 @@ Route::get('/dashboard/report/pasien', 'ReportAll@pasien');
 Route::get('/dashboard/tambah/obat', 'Tambah@tambah_obat');
 Route::post('/dashboard/tambah/obat', 'Tambah@proses_tambah_obat');
 Route::get('/dashboard/obat', 'Obat@index');
+Route::get('/dashboard/obat/check','Obat@ajaxObat');
 
 // route for adding anything
 Route::get('/dashboard/akun/tambah', 'Akun@tambah');
@@ -100,6 +101,9 @@ Route::post('/dashboard/akun/tambah', 'Akun@proses_tambah');
 Route::get('/dashboard/tambah/spesialis', 'Tambah@spesialis');
 Route::post('/dashboard/tambah/spesialis', 'Tambah@tambah_spesialis');
 Route::post('/dashboard/tambah/spesialis/file', 'Tambah@tambah_file_spesialis');
+Route::get('/dashboard/tambah/manufaktur/{id}', 'Tambah@manufaktur');
+Route::post('/dashboard/tambah/manufaktur/{id}', 'Tambah@proses_manufaktur');
+
 
 // route for see account
 Route::get('/dashboard/akun/hapus/{id}', 'Akun@hapus');
@@ -114,3 +118,12 @@ Route::get('/dashboard/logging-user','LoggingUser@index');
 
 //payment gateway 
 Route::get('/dashboard/payments/manufaktur/bri', 'APIPaymentGateway@_initTOKENBRI');
+
+// route for manufakturing
+Route::get('/dashboard/manufaktur', 'Manufaktur@index');
+Route::get('/dashboard/manufaktur/detail/{id}','Manufaktur@detail');
+
+// route purchase order
+Route::get('/dashboard/purchase-order', 'Tambah@tambahPurchaseOrder');
+Route::post('/dashboard/purchase-order', 'Tambah@prosestambahPurchaseOrder');
+Route::get('/dashboard/purchase-order/list','PurchaseOrder@index');

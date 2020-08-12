@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <script src="{{ url('assets/vendors/jquery/dist/jquery.min.js') }}" type="text/javascript"></script>
+
     <title>Admin Rumah Sakit | Demo</title>
+    
     <!-- GLOBAL MAINLY STYLES-->
     
     <link href="{{ url('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -130,6 +133,38 @@
                             </li>
                             <li>
                                 <a href="/dashboard/dokter/jadwal"><i class="ti-calendar"></i> Jadwal Dokter</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Dokter")
+                    <li class="heading">Menu Manufaktur</li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon ti-list"></i>
+                            <span class="nav-label">Manufaktur</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="/dashboard/tambah/manufaktur/MF-{{ uniqid() }}-{{date('Y')}}"><i class="ti-plus"></i> Tambah Manufaktur</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/manufaktur"><i class="ti-align-justify"></i> Daftar Manufaktur</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Dokter")
+                    <li class="heading">Menu Purchase Order</li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon ti-list"></i>
+                            <span class="nav-label">Purchase Order</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="/dashboard/purchase-order"><i class="ti-plus"></i>Tambah Purchase Order</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/purchase-order/list"><i class="ti-align-justify"></i> Daftar Purchase Order</a>
                             </li>
                         </ul>
                     </li>
@@ -412,7 +447,7 @@
 
     <!-- END PAGA BACKDROPS-->
     <!-- CORE PLUGINS-->
-    <script src="{{ url('assets/vendors/jquery/dist/jquery.min.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ url('assets/vendors/jquery/dist/jquery.min.js') }}" type="text/javascript"></script> -->
     <script src="{{ url('assets/vendors/popper.js/dist/umd/popper.min.js') }}" type="text/javascript"></script>
     <script src="{{ url('assets/vendors/bootstrap/dist/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ url('assets/vendors/metisMenu/dist/metisMenu.min.js') }}" type="text/javascript"></script>
