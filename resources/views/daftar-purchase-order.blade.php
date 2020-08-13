@@ -21,7 +21,7 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Manufaktur</th>
                                             <th>Jumlah Transaksi</th>
                                             <th>Total Stok</th>
