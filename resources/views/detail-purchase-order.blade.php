@@ -5,7 +5,8 @@
                     <div class="col-md">
                         <div class="ibox">
                             <div class="ibox-head">
-                                <div class="ibox-title">Daftar Purchase Order</div>
+                                <div class="ibox-title">Detail Purchase Order #{{$nama}}</div>
+                                <button onClick="alert('ok')" class="btn btn-primary">Export ke excel</button>
                             </div>
                             <div class="ibox-body">
                                 @if($message_ok = Session::get('success'))
@@ -18,42 +19,35 @@
                                     {{ $message_g }}
                                 </div>
                                 @endif
-                                <table class="table">
+                                <div class="tablesa" id="tablesa">
+                                <table class="table" id="tablese">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Manufaktur</th>
-                                            <th>Jumlah Transaksi</th>
-                                            <th>Total Stok</th>
-                                            <th>Status</th>
+                                            <th>Nama Obat</th>
                                             <th>Satuan</th>
-                                            <th>Dibuat oleh</th>
-                                            <th>Tanggal</th>
+                                            <th>Jumlah</th>
+                                            <th>Harga ( Sebelumnya )</th>
+                                            <!-- <th>Generate by</th> -->
+                                            <th>Status</th>
+                                            <!-- <th>Send to</th> -->
                                             <th>Opsi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($po as $num => $pos)
-                                        <tr>
-                                            <td>{{ $po->firstItem() + $num }}</td>
-                                            <td>{{ $pos->nama_manufaktur }}</td>
-                                            <td>{{ $pos->total_belanja }}</td>
-                                            <td>{{ $pos->total_stok }}</td>
-                                            <td>{{ $pos->status }}</td>
-                                            <td>{{ $pos->make_by }}</td>
-                                            <td>{{ $pos->created_at }}</td>
-                                            <td><a href="/dashboard/purchase-order/detail/{{ $pos->id }}/{{$pos->nama_manufaktur}}">Detail</a> / <a href="#">Hapus</a></td>
-                                        </tr>
-                                    @endforeach
+                                        @foreach($get_list as $num => $datas)
+                                            <tr>
+                                                <td>{{ $get_list->firstItem() + $num }}</td>
+                                                <td>{{ $datas->nama_manufaktur }}</td>
+                                            </tr>
+                                        @endforeach 
                                     </tbody>
                                 </table>
-
-
+                                </div>
                             </div>
                         </div>
-                    </div>
-                
-                
+                    </div>   
 </div>
 
 @endsection

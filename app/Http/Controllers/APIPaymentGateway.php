@@ -35,7 +35,7 @@ class APIPaymentGateway extends Controller
         $json = json_decode($result, true);
         $accesstoken = $json['access_token'];
         // $NoRek = "037701000692301";
-        $NoRek = "888801000157508";
+        $NoRek = "044201001248308";
         $secret = $this->private_key;
         $timestamp = gmdate("Y-m-d\TH:i:s.000\Z");
         $token = $accesstoken;

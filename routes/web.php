@@ -93,7 +93,7 @@ Route::get('/dashboard/report/pasien', 'ReportAll@pasien');
 Route::get('/dashboard/tambah/obat', 'Tambah@tambah_obat');
 Route::post('/dashboard/tambah/obat', 'Tambah@proses_tambah_obat');
 Route::get('/dashboard/obat', 'Obat@index');
-Route::get('/dashboard/obat/check','Obat@ajaxObat');
+Route::get('/dashboard/obat/check','PurchaseOrder@ajaxObat')->name('o-check');
 
 // route for adding anything
 Route::get('/dashboard/akun/tambah', 'Akun@tambah');
@@ -127,3 +127,4 @@ Route::get('/dashboard/manufaktur/detail/{id}','Manufaktur@detail');
 Route::get('/dashboard/purchase-order', 'Tambah@tambahPurchaseOrder');
 Route::post('/dashboard/purchase-order', 'Tambah@prosestambahPurchaseOrder');
 Route::get('/dashboard/purchase-order/list','PurchaseOrder@index');
+Route::get('/dashboard/purchase-order/detail/{id}/{nama}', 'PurchaseOrder@detailPO');

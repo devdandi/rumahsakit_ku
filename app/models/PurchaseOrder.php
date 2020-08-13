@@ -9,7 +9,7 @@ class PurchaseOrder extends Model
 {
     protected $fillable = [
         'id_manufaktur',
-        'nama_obat',
+        'id_obat',
         'satuan',
         'jumlah',
         'harga',
@@ -20,6 +20,6 @@ class PurchaseOrder extends Model
 
     static function getList()
     {
-        return DB::table('po_views')->paginate(10);
+        return DB::table('po_pending_views')->paginate(10);
     }
 }

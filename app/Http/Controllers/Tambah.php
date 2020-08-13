@@ -128,7 +128,7 @@ class Tambah extends Controller
         {
             $this->purchase_order->create([
                 'id_manufaktur' => $req->manufaktur,
-                'nama_obat' => $req->nama_obat[$i],
+                'id_obat' => $req->nama_obat[$i],
                 'satuan' => $req->satuan[$i],
                 'jumlah' => $req->jumlah[$i],
                 'make_by' => session('email'),
