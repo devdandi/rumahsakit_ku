@@ -124,16 +124,42 @@ class Tambah extends Controller
     }
     public function prosestambahPurchaseOrder(Request $req)
     {
+
+        // dd($explode);
         for($i = 0; $i < count($req->nama_obat); $i++)
         {
-            $this->purchase_order->create([
-                'id_manufaktur' => $req->manufaktur,
-                'id_obat' => $req->nama_obat[$i],
-                'satuan' => $req->satuan[$i],
-                'jumlah' => $req->jumlah[$i],
-                'make_by' => session('email'),
-                'send_to' => $req->send_to
-            ]);
+            $explode = explode("|", $req->nama_obat[$i]);
+            if(strpos($req->nama_obat[$i], '|') !== false)
+            {
+                $this->purchase_order->create([
+                    'id_manufaktur' => $req->manufaktur,
+                    'id_obat' => $explode[$i],
+                    'nama_obat' => 'null',
+                    'satuan' => $req->satuan[$i],
+                    'jumlah' => $req->jumlah[$i],
+                    'make_by' => session('email'),
+                    'send_to' => $req->send_to
+                ]);
+                
+            }else{
+                $this->purchase_order->create([
+                    'id_manufaktur' => $req->manufaktur,
+                    'id_obat' => 0,
+                    'nama_obat' => $explode[$i-1],
+                    'satuan' => $req->satuan[$i],
+                    'jumlah' => $req->jumlah[$i],
+                    'make_by' => session('email'),
+                    'send_to' => $req->send_to
+                ]);
+            }
+            // $this->purchase_order->create([
+            //     'id_manufaktur' => $req->manufaktur,
+            //     'id_obat' => $req->nama_obat[$i],
+            //     'satuan' => $req->satuan[$i],
+            //     'jumlah' => $req->jumlah[$i],
+            //     'make_by' => session('email'),
+            //     'send_to' => $req->send_to
+            // ]);
         }
         return redirect()->back()->with(['success' => 'Berhasil dikirim dan dibuat !']);
     }
