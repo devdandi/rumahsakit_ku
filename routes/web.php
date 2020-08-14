@@ -134,4 +134,11 @@ Route::get('/dashboard/purchase-order/hapus/{id}', 'PurchaseOrder@hapus');
 
 // route for approve
 Route::get('/dashboard/purchase-order/approve/{id}', 'Pembelian@approve');
+ 
+
+// Route for pembelian
+Route::get('/dashboard/pembelian', 'Pembelian@index');
+
+// route for print excel
+Route::get('/dashboard/print/pembelian/excel/{id}/{tanggal}', 'PrintExcel@pembelian');
 

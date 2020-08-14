@@ -7,6 +7,7 @@ use App\models\Obat;
 use App\models\User;
 use App\models\Dokter;
 use App\models\PurchaseOrder;
+use DB;
 
 
 class Pembelian extends Controller
@@ -15,11 +16,11 @@ class Pembelian extends Controller
     function __construct(PurchaseOrder $po, User $user, Dokter $dokter, Obat $obat)
     {
         $this->po = $po;
-        if(session('level') == "user")
+        if(session('level') == "dokter")
         {
-            $this->user = $user;
-        }else{
             $this->user = $dokter;
+        }else{
+            $this->user = $user;
         }
         $this->obat = $obat;
     }
@@ -32,5 +33,12 @@ class Pembelian extends Controller
                 ['success' => 'Disetujui']
             );
         }
+    }
+    public function index()
+    {
+        // dd($this->user);
+        $get_data = $this->user->where('email', session('email'))->get();
+        $get_list = DB::table('po_approve_views')->paginate(10);
+        return view('daftar-pembelian', compact('get_data','get_list'));
     }
 }

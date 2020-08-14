@@ -23,4 +23,8 @@ class PurchaseOrder extends Model
     {
         return DB::table('po_pending_views')->paginate(10);
     }
+    public static function prints($id, $tanggal)
+    {
+        return DB::table('purchase-order')->where('id', $id)->where('created_at','LIKE','%'.$tanggal.'%')->get();
+    }
 }
