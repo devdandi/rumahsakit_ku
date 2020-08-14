@@ -62,7 +62,7 @@
                                             <select name="nama_obat[]" id="nama_obat" class="form-control w-50">
                                                 <option value="">pilih</option>
                                                 <?php $__currentLoopData = $get_obat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($obat->id_obat); ?>"><?php echo e($obat->nama); ?></option>
+                                                    <option value="<?php echo e($obat->id_obat); ?>|<?php echo e($obat->nama); ?>"><?php echo e($obat->nama); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
                                         </div>

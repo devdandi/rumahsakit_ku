@@ -24,9 +24,8 @@
                                             <th>No</th>
                                             <th>Manufaktur</th>
                                             <th>Jumlah Transaksi</th>
-                                            <th>Total Stok</th>
+                                            <th>Total QTY</th>
                                             <th>Status</th>
-                                            <th>Satuan</th>
                                             <th>Dibuat oleh</th>
                                             <th>Tanggal</th>
                                             <th>Opsi</th>
@@ -37,12 +36,12 @@
                                         <tr>
                                             <td>{{ $po->firstItem() + $num }}</td>
                                             <td>{{ $pos->nama_manufaktur }}</td>
-                                            <td>{{ $pos->total_belanja }}</td>
+                                            <td>{{ $pos->total_transaksi }}</td>
                                             <td>{{ $pos->total_stok }}</td>
                                             <td>{{ $pos->status }}</td>
                                             <td>{{ $pos->make_by }}</td>
                                             <td>{{ $pos->created_at }}</td>
-                                            <td><a href="/dashboard/purchase-order/detail/{{ $pos->id }}/{{$pos->nama_manufaktur}}">Detail</a> / <a href="#">Hapus</a></td>
+                                            <td><a href="/dashboard/purchase-order/detail/{{ $pos->id_manufaktur }}/{{$pos->nama_manufaktur}}">Detail</a> / <a href="#">Hapus</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

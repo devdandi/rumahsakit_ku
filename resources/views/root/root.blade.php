@@ -155,6 +155,19 @@
                     @endif
 
                     @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Dokter")
+                    <li class="heading">Menu Pembelian</li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon ti-list"></i>
+                            <span class="nav-label">Pembelian</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="/dashboard/pembelian"><i class="ti-align-justify"></i> Daftar Pembelian</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if($get_data[0]->level == "Administrator" || $get_data[0]->level == "Dokter")
                     <li class="heading">Menu Purchase Order</li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon ti-list"></i>

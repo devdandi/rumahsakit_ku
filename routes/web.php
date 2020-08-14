@@ -128,3 +128,10 @@ Route::get('/dashboard/purchase-order', 'Tambah@tambahPurchaseOrder');
 Route::post('/dashboard/purchase-order', 'Tambah@prosestambahPurchaseOrder');
 Route::get('/dashboard/purchase-order/list','PurchaseOrder@index');
 Route::get('/dashboard/purchase-order/detail/{id}/{nama}', 'PurchaseOrder@detailPO');
+Route::get('/dashboard/purchase-order/edit/{id}', 'PurchaseOrder@edit');
+Route::post('/dashboard/purchase-order/edit/{id}', 'PurchaseOrder@proses_edit');
+Route::get('/dashboard/purchase-order/hapus/{id}', 'PurchaseOrder@hapus');
+
+// route for approve
+Route::get('/dashboard/purchase-order/approve/{id}', 'Pembelian@approve');
+

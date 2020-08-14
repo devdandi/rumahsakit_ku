@@ -23,12 +23,11 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Manufaktur</th>
                                             <th>Jumlah Transaksi</th>
-                                            <th>Total Stok</th>
+                                            <th>Total QTY</th>
                                             <th>Status</th>
-                                            <th>Satuan</th>
                                             <th>Dibuat oleh</th>
                                             <th>Tanggal</th>
                                             <th>Opsi</th>
@@ -39,12 +38,12 @@
                                         <tr>
                                             <td><?php echo e($po->firstItem() + $num); ?></td>
                                             <td><?php echo e($pos->nama_manufaktur); ?></td>
-                                            <td><?php echo e($pos->total_belanja); ?></td>
+                                            <td><?php echo e($pos->total_transaksi); ?></td>
                                             <td><?php echo e($pos->total_stok); ?></td>
                                             <td><?php echo e($pos->status); ?></td>
                                             <td><?php echo e($pos->make_by); ?></td>
                                             <td><?php echo e($pos->created_at); ?></td>
-                                            <td><a href="/dashboard/purchase-order/detail/<?php echo e($pos->id); ?>/<?php echo e($pos->nama_manufaktur); ?>">Detail</a> / <a href="#">Hapus</a></td>
+                                            <td><a href="/dashboard/purchase-order/detail/<?php echo e($pos->id_manufaktur); ?>/<?php echo e($pos->nama_manufaktur); ?>">Detail</a> / <a href="#">Hapus</a></td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>

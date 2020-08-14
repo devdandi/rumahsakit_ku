@@ -15,7 +15,8 @@ class PurchaseOrder extends Model
         'harga',
         'make_by',
         'status',
-        'send_to'
+        'send_to',
+        'nama_obat'
     ];
 
     static function getList()

@@ -36,15 +36,9 @@ class PurchaseOrder extends Controller
     {
         return session('level');
     }
-    // function validateLogin()
-    // {
-    //     return 
-    // }
     public function index()
     {
-        // dd($this->user);
         $get_data = $this->user->where('email', session('email'))->get();
-        // dd($get_data);
         $po = $this->po->getList();
         return view('daftar-purchase-order', compact('get_data','po'));
     }
@@ -71,25 +65,79 @@ class PurchaseOrder extends Controller
             
         }
         $get_data = $this->user->where('email', session('email'))->get();
+        $get_list = $this->po->where('id_manufaktur', $id)->paginate(10);
 
-        
-        // $get_list = $this->po->where('nama_manufaktur', $nama)->paginate(10);
-        $get_list = DB::table('po_pending_views')->where('id', $id)->paginate(10);
+        foreach($get_list as $a)
+        {
+            $c = $this->obat->where('id_obat', $a->id_obat)->get();
 
-        // foreach($get_list as $ca) {
-        //     $check = $this->obat->where('id_obat', $ca->id_obat)->get();
-        //     // echo "<pre>";
-        //     foreach($check as $cas)
-        //     { 
-        //         // dd($ca);
-        //         $dataa['harga'][$cas->id_obat] = $cas->harga;
-        //         $dataa['nama'][$cas->id_obat] = $cas->nama;
-                
-        //     }
-        // }
-        // echo "<pre>";
-        // print_r($dataa);
+            foreach($c as $ac)
+            {
+                $dataa['details'][$ac->id_obat] = $ac->nama;
+                $dataa['details']['harga'][$ac->id_obat] = $ac->harga;
+                $dataa['details']['details_id'][$ac->id_obat] = $ac->id_obat;
+             }
+        }
+        return view('detail-purchase-order', compact('get_data','get_list','nama','dataa', 'id'));
+    }
+    public function edit($id)
+    {
+        $get_list = '';
+        if($id == null)
+        {
+            return redirect()->back()->with([
+                'error' => 'Something Went Wrong !'
+            ]);
+        }
+        $get_data = $this->user->where('email', session('email'))->get();
+
+        $get_list = $this->po->where('id', $id)->get();
         
-        return view('detail-purchase-order', compact('get_data','get_list','nama'));
+        return view('edit-purchase-order', compact('get_data','get_list'));
+    }
+    public function proses_edit(Request $req, $id)
+    {
+        if($id == null)
+        {
+            return redirect()->back()->with([
+                'error' => 'Error'
+            ]);
+        }
+        // dd($req->input());
+        $save = $this->po->where('id', $id)->update([
+            'satuan' => $req->satuan,
+            'nama_obat' => $req->nama_obat,
+            'jumlah' => $req->qty
+        ]);
+        if($save)
+        {
+            return redirect()->back()->with([
+                'success' => 'Data diperbarui !'
+            ]);
+        }else{
+            return redirect()->back()->with([
+                'error' => 'Data gagal diperbarui !'
+            ]);
+        }
+    }
+    function hapus($id)
+    {
+        if($id == null)
+        {
+            return redirect()->back()->with([
+                'error' => 'Something went wrong'
+            ]);
+        }
+        $del = $this->po->where('id', $id)->delete();
+        if($del)
+        {
+            return redirect()->back()->with([
+                'success' => 'Data dihapus !'
+            ]);
+        }else{
+            return redirect()->back()->with([
+                'error' => 'Something went wrong'
+            ]);
+        }
     }
 }

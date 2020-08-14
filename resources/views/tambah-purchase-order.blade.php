@@ -60,7 +60,7 @@
                                             <select name="nama_obat[]" id="nama_obat" class="form-control w-50">
                                                 <option value="">pilih</option>
                                                 @foreach($get_obat as $obat)
-                                                    <option value="{{$obat->id_obat}}">{{ $obat->nama }}</option>
+                                                    <option value="{{$obat->id_obat}}|{{ $obat->nama }}">{{ $obat->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
